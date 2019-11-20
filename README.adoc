@@ -1,0 +1,6 @@
+= Spring Boot 初始项目样板
+这是一套 Spring Boot 项目样板，包含：
+* 使用 Java 11 作为主要编程语言
+* 使用 Maven 作为项目构建工具
+* 使用 Spring Boot 2.2
+* 使用 YAML 格式作为配置文件
