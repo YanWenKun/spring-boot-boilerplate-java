@@ -1,6 +1,36 @@
-= Spring Boot 初始项目样板
-这是一套 Spring Boot 项目样板，包含：
-* 使用 Java 11 作为主要编程语言
-* 使用 Maven 作为项目构建工具
-* 使用 Spring Boot 2.2
-* 使用 YAML 格式作为配置文件
+= Spring Boot 样板项目
+
+本样板项目基于 https://spring.io/[Spring] 官方的 https://start.spring.io/[Spring Initializr] 生成的 https://spring.io/projects/spring-boot/[Spring Boot] 项目，
+并添加一些实用的常见配置，便于在新项目启动时“简单修改POM即可复用”。
+
+同时，本项目也将不断跟进上游最新版本，以便下游项目一站式更新。
+
+== 项目信息
+
+* 构建工具：Maven
+* Java 版本：11
+
+与 https://start.spring.io/[Spring Initializr] 生成的 https://spring.io/projects/spring-boot/[Spring Boot] 项目相比，有如下变动：
+
+* git 行为配置
+** 一个通用的 `.gitignore` 文件（规定 git 自动忽略哪些文件）
+** 一个通用的 `.gitattributes` 文件（规定 git 对文本格式的处理）
+
+* Maven 仓库使用【阿里云】中国大陆的镜像，改善下载速度
+
+* 包含一个基本的 `README.adoc` 自述文件，以便参考 AsciiDoc 语法
+** AsciiDoc 也兼容 Markdown 语法，直接写 Markdown 也 OK
+
+* 配置文件使用YAML （ `application.yml` 取代 `application.properties` ）
+
+* 项目 Profile
+** 三个 Maven Profile: `dev`, `staging`, `production`
+** 三个 Spring Profile: `dev`, `staging`, `production`
+** 注意两者的作用域不同，此处是为了便于项目管理而使用了一致的名字
+
+* Logback 日志配置 `logback-spring.xml`
+** 默认根据 Profile 选用控制台输出／文件输出（简单配置）
+** 附带样例文件，方便详细配置：
+*** `logback-spring.xml.file.sample` 文件输出（详尽配置）
+*** `logback-spring.xml.jdbc.sample` 数据库输出（JDBC）
+*** `logback-spring.xml.aliyun.sample` 阿里云SLS（阿里云日志服务）
