@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 尚未完成！ -->
+<!-- Spring Logback 通用配置文件 -->
+<!-- 整理编辑： yanwenkun@foxmail.com -->
+<!-- 可配置记录位置：控制台命令行输出、文件输出、数据库输出、阿里云SLS输出 -->
+<configuration>
+    <!-- 引入默认配置文件以减少文件长度 -->
+    <!-- 默认配置的内容，请查看Spring源代码： -->
+    <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml -->
+
+    <!-- 根据项目Profile配置日志等级 -->
+    <!-- 理解日志等级： -->
+    <!-- https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-custom-log-levels -->
+
+    <!-- 开发阶段，控制台打印 -->
+    <springProfile name="dev">
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <!-- 日志级别，以INFO级别打印大多数日志 -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <!-- defaults.xml 默认细分了日志等级，此处为不同 package 追加细分 -->
+        <!-- 以下表述相当于 org.springframework.web* -->
+        <logger name="org.springframework.web" level="DEBUG"/>
+    </springProfile>
+
+    <!-- 测试阶段，文件或数据库输出 -->
+    <springProfile name="staging">
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+        <!-- 日志文件名不在此处配置，请向配置文件 application-staging.properties 中添加： -->
+        <!-- logging.file.name=hellospring.staging.log -->
+        <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
+        <!-- file-appender.xml 默认设置：单文件最大10MB，保留7天 -->
+        <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
+
+        <!-- 使用数据库存储日志 -->
+        <!-- 注意：当前版本logback不认MySQL 8.0的JDBC，因此驱动路径还是旧的，但依然兼容 -->
+        <!-- 注意：即使数据库字符集是utf8mb4，连接串中依然用 characterEncoding=UTF-8 参数 -->
+
+        <appender name="DB"
+                  class="ch.qos.logback.classic.db.DBAppender">
+            <connectionSource
+                    class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+                <driverClass>com.mysql.jdbc.Driver</driverClass>
+                <url>
+                    jdbc:mysql://localhost:3306/日志数据库名?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
+                </url>
+                <user>用户名</user>
+                <password>密码</password>
+            </connectionSource>
+        </appender>
+
+        <!-- 日志级别 -->
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+            <!-- <appender-ref ref="DB" /> -->
+        </root>
+    </springProfile>
+
+    <!-- 生产阶段，日志服务输出 -->
+    <springProfile name="production">
+
+        <!-- 使用阿里云SLS收集日志 -->
+        <!-- 注意，需要为Maven项目添加依赖： -->
+        <!--
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>aliyun-log-logback-appender</artifactId>
+            <version>0.1.15</version>
+        </dependency>
+        -->
+
+        <!--为了防止进程退出时，内存中的数据丢失，请加上此选项-->
+        <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+        <appender name="ALIYUN" class="com.aliyun.openservices.log.logback.LoghubAppender">
+            <!--必选项-->
+            <!-- 账号及网络配置 -->
+            <endpoint>日志服务的 HTTP 地址</endpoint>
+            <accessKeyId>用户身份标识 accesskey id</accessKeyId>
+            <accessKeySecret>用户身份标识 accesskey secret</accessKeySecret>
+
+            <!-- sls 项目配置 -->
+            <project>日志服务的 project 名</project>
+            <logStore>日志服务的 logstore 名</logStore>
+            <!--必选项 (end)-->
+
+            <!-- 可选项 -->
+            <topic>指定日志主题，默认为 ""</topic>
+            <source>指定日志来源，默认为应用程序所在宿主机的 IP</source>
+
+            <!-- 可选项 详见 '参数说明'-->
+            <!-- https://github.com/aliyun/aliyun-log-logback-appender/blob/master/README_CN.md -->
+            <totalSizeInBytes>104857600</totalSizeInBytes>
+            <maxBlockMs>60000</maxBlockMs>
+            <ioThreadCount>8</ioThreadCount>
+            <batchSizeThresholdInBytes>524288</batchSizeThresholdInBytes>
+            <batchCountThreshold>4096</batchCountThreshold>
+            <lingerMs>2000</lingerMs>
+            <retries>10</retries>
+            <baseRetryBackoffMs>100</baseRetryBackoffMs>
+            <maxRetryBackoffMs>100</maxRetryBackoffMs>
+
+            <!-- 可选项 通过配置 encoder 的 pattern 自定义 log 的格式 -->
+            <encoder>
+                <pattern>%d %-5level [%thread] %logger{0}: %msg</pattern>
+            </encoder>
+
+            <!-- 可选项 设置 time 字段呈现的格式 -->
+            <timeFormat>yyyy-MM-dd'T'HH:mmZ</timeFormat>
+            <!-- 可选项 设置 time 字段呈现的时区 -->
+            <!-- 如果不正常，设置为 Asia/Shanghai -->
+            <timeZone>UTC</timeZone>
+        </appender>
+
+        <!-- 可用来获取StatusManager中的状态
+        <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+        -->
+
+        <root>
+            <level value="ERROR"/>
+            <appender-ref ref="ALIYUN"/>
+        </root>
+    </springProfile>
+
+    <!-- 备注：springProfile name字段允许逻辑运算，如【或】"dev | staging"，【非】"!production" -->
+
+</configuration>
