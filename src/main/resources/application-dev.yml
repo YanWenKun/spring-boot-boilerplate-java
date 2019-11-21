@@ -1,0 +1,2 @@
+# 开发阶段 Profile 配置
+# 继承 application.yml 中的配置，并覆盖

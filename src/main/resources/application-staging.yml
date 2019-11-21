@@ -1,0 +1,8 @@
+# 预发布阶段（本项目中指提交代码后、正式上线前的所有阶段，将测试阶段合并其中） Profile 配置
+# 继承 application.yml 中的配置，并覆盖
+## 理解 Staging 阶段在敏捷开发中的意义： http://www.shuker.top/technology/devops/deployments-best-practices/
+
+logging:
+  file:
+    name: ./log/@artifactId@.@activatedProperties@.log # 
+#    path: ${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}} # 指向OS临时目录

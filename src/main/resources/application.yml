@@ -1,0 +1,15 @@
+# 全局配置
+
+# 注意：Profile 分为两种： 1. Spring Profile ; 2. Maven Profile
+# Spring Profile 同一时间只能有一个激活
+# Maven Profile 同一时间可以有多个激活（在本项目中不推荐这么做）
+
+# 在本项目中，为了便于统一管理，将 Spring Profile 和 Maven Profile 共用同一套名称 (dev, staging, production)
+# 但需要明白，这两个 Profile 并不是一回事
+
+# Spring Profile 在 Java/Kotlin 代码中的用法：使用Spring注解： @Profile("staging")
+# Maven Profile 不关心 Java 代码中的注解，只关心编译资源
+
+spring:
+  profiles:
+    active: @activatedProperties@  # 来自 POM.XML 中的 activatedProperties
