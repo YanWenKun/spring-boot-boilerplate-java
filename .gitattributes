@@ -1,7 +1,7 @@
 ### Java／Kotlin／Spring／Vert.x 项目常用 .gitattributes 模板 ###
 ### GitHub地址： https://github.com/yanwenkun/git-ignore-and-attributes-for-java ###
-### 作者 yanwenkun@foxmail.com ###
-### 版本 20191121-1 ###
+### 整理者： yanwenkun@foxmail.com ###
+### 版本： 20191121-1 ###
 
 # 自动检测文本文件并统一为LF行尾
 * text=auto eol=lf

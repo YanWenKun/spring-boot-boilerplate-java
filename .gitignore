@@ -1,10 +1,8 @@
 ### Java／Kotlin／Spring／Vert.x 项目常用 .gitignore 模板 ###
 ### GitHub地址： https://github.com/yanwenkun/git-ignore-and-attributes-for-java ###
-### 作者 yanwenkun@foxmail.com ###
-### 版本 20191121-1 ###
+### 整理者： yanwenkun@foxmail.com ###
+### 版本： 20191121-1 ###
 
-HELP.md
-build/
 log/
 *.log
 *.class
@@ -31,6 +29,9 @@ Temporary Items
 # Icon must end with two \r
 Icon
 
+### Spring Boot ###
+HELP.md
+
 ### Vert.x ###
 .vertx/
 
@@ -39,6 +40,7 @@ Icon
 .gradle
 gradle-app.setting
 .gradletasknamecache
+build/
 
 ### Maven ###
 !.mvn/wrapper/maven-wrapper.jar
@@ -149,7 +151,8 @@ hs_err_pid*
 .worksheet
 
 ### IntelliJ IDEA 常用配置 ###
-## 直接忽略 .idea 文件夹。如需将部分配置也提交到代码库，请使用“详细”配置
+## 该配置将排除整个 .idea 文件夹
+## 如果你想将部分 IDEA 项目设置也提交到代码库，请使用下一段的“详细”配置，并注释掉本段的配置
 .idea
 *.iws
 *.iml
@@ -187,6 +190,8 @@ out/
 ## When using Gradle or Maven with auto-import, you should exclude module files,
 ## since they will be recreated, and may cause churn.  Uncomment if using
 ## auto-import.
+#.idea/artifacts
+#.idea/compiler.xml
 #.idea/modules.xml
 #.idea/*.iml
 #.idea/modules
