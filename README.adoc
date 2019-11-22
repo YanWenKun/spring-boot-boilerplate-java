@@ -5,6 +5,8 @@
 
 同时，本项目也将不断跟进上游最新版本，以便下游项目一站式更新。
 
+image::readme-img-1.png[目录结构]
+
 == 项目信息
 
 * 构建工具：Maven
@@ -23,7 +25,7 @@
 
 * 配置文件使用YAML （ `application.yml` 取代 `application.properties` ）
 
-* 项目 Profile
+* 项目配置集
 ** 三个 Maven Profile: `dev`, `staging`, `production`
 ** 三个 Spring Profile: `dev`, `staging`, `production`
 ** 注意两者的作用域不同，此处是为了便于项目管理而使用了一致的名字
@@ -44,7 +46,7 @@
 * Git
 * Java
 
-运行命令：
+执行命令：
 [source,sh]
 ----
 git clone https://github.com/yanwenkun/spring-boot-boilerplate-java.git
@@ -54,32 +56,56 @@ cd spring-boot-boilerplate-java
 
 按 `Ctrl + C` 终止运行
 
-== 理解 Profile
+== 关于配置集
 
 * Profile 直译即“档案”，此处理解为配置、配置集
-* Maven 启用了哪个 Profile， Spring 也会启用相同的
 
-=== 引导式设计
+* 本项目中的 三个 Profile 是有意选择的单词，长度递增：
+** 开发阶段： `dev`
+** 验证阶段： `staging`
+** 生产阶段： `production`
 
-一些提示性更强的设计，在减少心智负担的同时，尽量引导最佳实践的方法。
-
-* 三个 Profile 是有意选择的单词，长度递增：
-** dev
-** staging
-** production
+=== Staging
 
 * staging 翻译成“验证阶段”
 ** 如果翻译成“测试阶段”，流程上太靠前
 ** 如果翻译成“预发布阶段”，流程上太靠后
-** “验证”更为中庸而灵活。本项目中泛指提交代码后、正式上线前的所有阶段，如有需要可以前后细分
+** “验证”更为明确而居中。本项目中仅包含这一中间阶段，如有需要可以再添加细分
 ** 理解 Staging 阶段在敏捷开发中的意义： http://www.shuker.top/technology/devops/deployments-best-practices/
+
+=== Profiles
+
+* 在本项目中有两种 Profile：
+ 1. Spring Profile
+ 2. Maven Profile
+
+* 为了便于统一管理，本项目中 Spring Profile 和 Maven Profile 共用同一套名称，并且对两者进行了关联
+** 比如， Maven 启用了 `staging` ， Spring 也会启用 `staging`
+* 但本质上，这两种 Profile 并不是一回事
+** 同一时间只能有一个 Spring Profile 激活
+** 同一时间可以有多个 Maven Profile 激活（在本项目中不推荐这么做）
+
+=== Profile 用法
+
+* Spring Profile 在 Java/Kotlin 代码中的用法：
+** 使用Spring注解： `@Profile("staging")`
+
+* Maven Profile 不关心 Java 代码中的注解，只关心编译资源
 
 === 取舍
 
-* Maven 与 Spring 共用 Profile 并不是高枕无忧的设计
-** 大部分情况下，使用 Spring Profile 就够用了
-** 如果不需要 Maven Profile 以编译不同依赖，可以不在 `pom.xml` 中定义 `Profiles`
-** 使用环境变量，可以使 Spring Boot 程序运行时直接调用不同配置集：
+* 开发、验证、生产
+ 1. 既是软件生命周期中的“阶段”
+ 2. 也是运维与软件治理中的“环境”
+* 这是一个“偷懒”的做法，将阶段和环境合为一谈，主要目的在于减少心智负担
+** 但扩大开发规模的时候，还是要注意概念上的区分
+
+=== 更多
+
+* Maven 与 Spring 共用 Profile name 并不是高枕无忧的设计
+** 主要看 Profile 是否与自动化流水线能够流畅配合
+* 如果不需要 Maven 根据环境／阶段管理不同的依赖，可以不在 `pom.xml` 中定义 `Profiles`
+* 使用环境变量，可以使 Spring Boot 程序运行时直接调用不同配置集：
 
 [source,sh]
 ----
