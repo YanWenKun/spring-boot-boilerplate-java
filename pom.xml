@@ -119,9 +119,10 @@
 
     <!-- Profile定义开始 -->
     <!-- 注意，Maven Profile不是Spring Profile -->
-    <!-- 使用Maven指定Profile打包的用法：命令行： mvn package -P profile_name -->
+    <!-- 注意，不要同时激活多个Maven Profile -->
+    <!-- 使用Maven指定Profile打包的用法：命令行： ./mvnw package -P profile_name -->
     <profiles>
-        <!-- 开发Profile，默认 -->
+        <!-- 开发阶段Profile，默认 -->
         <profile>
             <id>dev</id>
             <properties>
@@ -131,14 +132,14 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
-        <!-- 预发布Profile（本项目中指提交代码后、正式上线前的所有阶段，将测试阶段合并其中） -->
+        <!-- 验证阶段Profile -->
         <profile>
             <id>staging</id>
             <properties>
                 <activatedProperties>staging</activatedProperties>
             </properties>
         </profile>
-        <!-- 生产Profile -->
+        <!-- 生产阶段Profile -->
         <profile>
             <id>production</id>
             <properties>

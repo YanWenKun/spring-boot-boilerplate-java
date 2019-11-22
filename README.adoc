@@ -19,7 +19,7 @@
 * Maven 仓库使用【阿里云】中国大陆的镜像，改善下载速度
 
 * 包含一个基本的 `README.adoc` 自述文件，以便参考 AsciiDoc 语法
-** AsciiDoc 也兼容 Markdown 语法，直接写 Markdown 也 OK
+** AsciiDoc 兼容 Markdown 语法，直接写 Markdown 也 OK
 
 * 配置文件使用YAML （ `application.yml` 取代 `application.properties` ）
 
@@ -34,3 +34,55 @@
 *** `logback-spring.xml.file.sample` 文件输出（详尽配置）
 *** `logback-spring.xml.jdbc.sample` 数据库输出（JDBC）
 *** `logback-spring.xml.aliyun.sample` 阿里云SLS（阿里云日志服务）
+
+== 运行指引
+
+* 如果你使用 IDEA / Spring Tool Suite，直接运行项目即可。
+
+如果你不想使用 IDE，可以用命令行的方式运行 Spring Boot 项目，你需要先在本地安装：
+
+* Git
+* Java
+
+运行命令：
+[source,sh]
+----
+git clone https://github.com/yanwenkun/spring-boot-boilerplate-java.git
+cd spring-boot-boilerplate-java
+./mvnw clean spring-boot:run
+----
+
+按 `Ctrl + C` 终止运行
+
+== 理解 Profile
+
+* Profile 直译即“档案”，此处理解为配置、配置集
+* Maven 启用了哪个 Profile， Spring 也会启用相同的
+
+=== 引导式设计
+
+一些提示性更强的设计，在减少心智负担的同时，尽量引导最佳实践的方法。
+
+* 三个 Profile 是有意选择的单词，长度递增：
+** dev
+** staging
+** production
+
+* staging 翻译成“验证阶段”
+** 如果翻译成“测试阶段”，流程上太靠前
+** 如果翻译成“预发布阶段”，流程上太靠后
+** “验证”更为中庸而灵活。本项目中泛指提交代码后、正式上线前的所有阶段，如有需要可以前后细分
+** 理解 Staging 阶段在敏捷开发中的意义： http://www.shuker.top/technology/devops/deployments-best-practices/
+
+=== 取舍
+
+* Maven 与 Spring 共用 Profile 并不是高枕无忧的设计
+** 大部分情况下，使用 Spring Profile 就够用了
+** 如果不需要 Maven Profile 以编译不同依赖，可以不在 `pom.xml` 中定义 `Profiles`
+** 使用环境变量，可以使 Spring Boot 程序运行时直接调用不同配置集：
+
+[source,sh]
+----
+export SPRING_PROFILES_ACTIVE=production
+----
+

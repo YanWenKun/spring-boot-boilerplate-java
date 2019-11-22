@@ -25,7 +25,7 @@
         <logger name="org.springframework.web" level="DEBUG"/>
     </springProfile>
 
-    <!-- 测试阶段，文件或数据库输出 -->
+    <!-- 验证阶段，文件或数据库输出 -->
     <springProfile name="staging">
         <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
