@@ -28,7 +28,7 @@ image::readme-img-1.png[目录结构]
 * 项目配置集
 ** 三个 Maven Profile: `dev`, `staging`, `production`
 ** 三个 Spring Profile: `dev`, `staging`, `production`
-** 注意两者的作用域不同，此处是为了便于项目管理而使用了一致的名字
+** 注意两者的作用域不同，此处只是为了便于项目管理而使用了一致的名字
 
 * Logback 日志配置 `logback-spring.xml`
 ** 默认根据 Profile 选用控制台输出／文件输出（简单配置）
@@ -81,7 +81,7 @@ cd spring-boot-boilerplate-java
 
 * 为了便于统一管理，本项目中 Spring Profile 和 Maven Profile 共用同一套名称，并且对两者进行了关联
 ** 比如， Maven 启用了 `staging` ， Spring 也会启用 `staging`
-* 但本质上，这两种 Profile 并不是一回事
+* 如果配置不当，这两种 Profile 可能会冲突
 ** 同一时间只能有一个 Spring Profile 激活
 ** 同一时间可以有多个 Maven Profile 激活（在本项目中不推荐这么做）
 
