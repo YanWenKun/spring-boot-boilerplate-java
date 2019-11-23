@@ -1,11 +1,11 @@
-= Spring Boot 样板项目
+= Spring Boot 样板项目（使用Java与Maven）
 
 本样板项目基于 https://spring.io/[Spring] 官方的 https://start.spring.io/[Spring Initializr] 生成的 https://spring.io/projects/spring-boot/[Spring Boot] 项目，
 并添加一些实用的常见配置，便于在新项目启动时“简单修改POM即可复用”。
 
 同时，本项目也将不断跟进上游最新版本，以便下游项目一站式更新。
 
-image::readme-img-1.png[目录结构]
+image::docs/folder-hierarchy.png[目录结构]
 
 == 项目信息
 
@@ -70,7 +70,7 @@ cd spring-boot-boilerplate-java
 * staging 翻译成“验证阶段”
 ** 如果翻译成“测试阶段”，流程上太靠前
 ** 如果翻译成“预发布阶段”，流程上太靠后
-** “验证”更为明确而居中。本项目中仅包含这一中间阶段，如有需要可以再添加细分
+** “验证”更为概括而居中。本项目中仅包含这一中间阶段，如有需要可以再添加细分
 ** 理解 Staging 阶段在敏捷开发中的意义： http://www.shuker.top/technology/devops/deployments-best-practices/
 
 === Profiles
