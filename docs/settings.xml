@@ -1,0 +1,38 @@
+<!-- 配置 Maven 使用阿里云的镜像 -->
+<!-- 请将本文件置于： ~/.m2/settings.xml -->
+<settings>
+
+  <mirrors>
+    <mirror>
+      <id>AliyunMavenCentral</id>
+      <name>Aliyun Maven Central</name>
+      <url>https://maven.aliyun.com/repository/central</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>AliyunMavenJcenter</id>
+      <name>Aliyun Maven Jcenter</name>
+      <url>https://maven.aliyun.com/repository/jcenter</url>
+      <mirrorOf>jcenter</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>AliyunMavenSpring</id>
+      <name>Aliyun Maven Spring</name>
+      <url>https://maven.aliyun.com/repository/spring</url>
+      <mirrorOf>spring</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>AliyunMavenSpringPlugin</id>
+      <name>Aliyun Maven Spring-Plugin</name>
+      <url>https://maven.aliyun.com/repository/spring-plugin</url>
+      <mirrorOf>spring-plugin</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>AliyunMavenGoogle</id>
+      <name>Aliyun Maven Google</name>
+      <url>https://maven.aliyun.com/repository/google</url>
+      <mirrorOf>google</mirrorOf>
+    </mirror>
+  </mirrors>
+
+</settings>
