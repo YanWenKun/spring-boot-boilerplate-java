@@ -5,7 +5,59 @@
 
 同时，本项目也将不断跟进上游最新版本，以便下游项目一站式更新。
 
-image::docs/folder-hierarchy.png[目录结构]
+目录结构：
+
+----
+spring-boot-boilerplate-java
+│  .gitattributes
+│  .gitignore
+│  LICENSE
+│  mvnw
+│  mvnw.cmd
+│  pom.xml
+│  README.adoc
+│  
+├─.mvn
+│  └─wrapper
+│          maven-wrapper.jar
+│          maven-wrapper.properties
+│          MavenWrapperDownloader.java
+│          
+├─docs
+│      settings.xml
+│      
+└─src
+    ├─main
+    │  ├─java
+    │  │  └─com
+    │  │      └─example
+    │  │          └─demo
+    │  │                  DemoApplication.java
+    │  │                  
+    │  └─resources
+    │      │  application-dev.yml
+    │      │  application-production.yml
+    │      │  application-staging.yml
+    │      │  application.yml
+    │      │  logback-spring.xml
+    │      │  logback-spring.xml.aliyun.example
+    │      │  logback-spring.xml.file.example
+    │      │  logback-spring.xml.jdbc.example
+    │      │  
+    │      ├─static
+    │      │      .gitkeep
+    │      │      
+    │      └─templates
+    │              .gitkeep
+    │              
+    └─test
+        └─java
+            └─com
+                └─example
+                    └─demo
+                            DemoApplicationTests.java
+
+----
 
 == 项目信息
 
@@ -79,11 +131,13 @@ cd spring-boot-boilerplate-java
 * 默认激活： `dev`
 
 * 以 `staging` 运行：
+[source,sh]
 ----
 ./mvnw clean spring-boot:run -P staging
 ----
 
 * 以 `production` 运行：
+[source,sh]
 ----
 ./mvnw clean spring-boot:run -P production
 ----
@@ -223,6 +277,7 @@ export SPRING_PROFILES_ACTIVE=production
 将 link:docs/settings.xml[settings.xml] 复制到【 用户主目录/.m2/ 】下。
 或执行命令：
 
+[source,sh]
 ----
 mkdir ~/.m2/
 cp docs/settings.xml ~/.m2/
