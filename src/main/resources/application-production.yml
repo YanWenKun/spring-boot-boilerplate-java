@@ -3,5 +3,9 @@
 
 logging:
   file:
-    name: ./log/@artifactId@.@activatedProperties@.log
+    name: ./log/@artifactId@.@activatedProperties@.log # 可在文件名前直接带上子目录
 #    path: ${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}} # 指向OS临时目录
+---
+spring:
+  main:
+    banner-mode: "off"
