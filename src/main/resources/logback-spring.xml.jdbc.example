@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spring Logback 配置： 输出日志到数据库（JDBC） -->
+<!-- 整理编辑： yanwenkun@foxmail.com -->
+
+<!-- Spring 文档：理解日志等级 -->
+<!-- https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-custom-log-levels -->
+
+<configuration>
+
+    <!-- 指定 Spring Profile -->
+    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!production" -->
+    <springProfile name="!dev">
+
+        <!-- 引入基础默认配置，具体内容请查看Spring源代码： -->
+        <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml -->
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+        <!-- 使用数据库存储日志 -->
+        <!-- 注意：当前版本logback不认MySQL 8.0的JDBC，因此驱动路径还是旧的，但依然兼容 -->
+        <!-- 注意：即使数据库字符集是utf8mb4，连接串中依然用 characterEncoding=UTF-8 参数 -->
+        <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+            <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+                <driverClass>com.mysql.jdbc.Driver</driverClass>
+                <url>
+                    jdbc:mysql://192.168.1.1:3306/【日志数据库名】?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
+                </url>
+                <user>【数据库用户名】</user>
+                <password>【数据库密码】</password>
+            </connectionSource>
+        </appender>
+
+        <!-- 指定基础日志级别 -->
+        <root level="WARN">
+            <!-- 指定包括哪些日志记录方式，可添加多个 appender-ref -->
+            <appender-ref ref="DB" />
+        </root>
+
+        <!-- 为某些类单独指定日志级别 -->
+        <logger name="com.example" level="INFO"/>
+
+    </springProfile>
+
+</configuration>

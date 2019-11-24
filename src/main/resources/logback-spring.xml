@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <!-- 开发阶段，仅输出到控制台 -->
     <springProfile name="dev">
         <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
         <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
@@ -8,9 +9,9 @@
             <appender-ref ref="CONSOLE"/>
         </root>
         <logger name="com.example" level="TRACE"/>
-        <logger name="org.springframework.web" level="DEBUG"/>
     </springProfile>
 
+    <!-- 验证阶段，输出到控制台和文件 -->
     <springProfile name="staging">
         <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
         <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
@@ -22,6 +23,7 @@
         <logger name="com.example" level="INFO"/>
     </springProfile>
 
+    <!-- 生产阶段，仅输出到文件 -->
     <springProfile name="production">
         <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
         <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>

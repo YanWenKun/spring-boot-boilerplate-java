@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spring Logback 配置： 输出日志到文件 -->
+<!-- 整理编辑： yanwenkun@foxmail.com -->
+
+<!-- Spring 文档：理解日志等级 -->
+<!-- https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-custom-log-levels -->
+
+<configuration>
+
+    <!-- 指定 Spring Profile -->
+    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!production" -->
+    <springProfile name="staging">
+
+        <!-- 引入默认配置文件以减少文件长度 -->
+
+        <!-- 引入基础默认配置，具体内容请查看Spring源代码： -->
+        <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml -->
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+        <!-- 引入日志文件默认配置：单文件最大10MB，保留7天 -->
+        <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/file-appender.xml -->
+        <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
+
+        <!-- 日志文件名不在此处配置，请修改配置文件【 application-{$profile}.yml 】 -->
+
+        <!-- 指定基础日志级别 -->
+        <root level="WARN">
+            <!-- 指定包括哪些日志记录方式，可添加多个 appender-ref -->
+            <appender-ref ref="FILE"/>
+        </root>
+
+        <!-- 为某些类单独指定日志级别 -->
+        <logger name="com.example" level="INFO"/>
+
+    </springProfile>
+
+</configuration>
+
+
+<!-- 详细版替代配置：不引入Spring默认配置，自定义输出日志到文件 -->
+<!-- 注意：该配置需指定文件名与存储位置，且无视Spring配置 -->
+<!-- 注意：必须指定encoder（日志格式），否则不会往文件输出内容（此处已提供默认模板） -->
+<!-- 当前策略：日志文件按日存储，保持最长30天，最大3GB -->
+<!-- 
+<configuration>
+    <springProfile name="staging">
+
+        <appender name="fileAppender"
+            class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>/var/log/spring/demo.log</file>
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</pattern>
+            </encoder>
+            <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>
+                /var/log/spring/demo.%d{yyyy-MM-dd}.log
+                </fileNamePattern>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>3GB</totalSizeCap>
+            </rollingPolicy>
+            <append>true</append>
+            <prudent>false</prudent>
+        </appender>
+
+        <root>
+            <level value="DEBUG" />
+            <appender-ref ref="fileAppender" />
+        </root>
+
+    </springProfile>
+</configuration>
+-->

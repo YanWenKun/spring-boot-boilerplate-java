@@ -8,26 +8,21 @@
         <version>2.2.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <!-- 软件制品信息 开始 -->
     <groupId>com.example</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Spring Boot Boilerplate Project</name>
     <description>Spring Boot 样板项目</description>
     <inceptionYear>2019</inceptionYear>
+    <!-- 软件制品信息 结束 -->
 
     <properties>
         <java.version>11</java.version>
     </properties>
 
+    <!-- 依赖项 开始 -->
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,16 +30,12 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -56,8 +47,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-    </dependencies>
 
+    </dependencies>
+    <!-- 依赖项 结束 -->
+
+    <!-- Maven构建插件 开始 -->
     <build>
         <plugins>
             <plugin>
@@ -66,60 +60,11 @@
             </plugin>
         </plugins>
     </build>
+    <!-- Maven构建插件 结束 -->
 
-    <!-- 仓库开始 -->
-    <repositories>
-        <!-- 阿里云Maven仓库 -->
-        <repository>
-            <id>AliMavenPublic</id>
-            <name>AliYun Maven public</name>
-            <url>https://maven.aliyun.com/repository/public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>AliMavenSpring</id>
-            <name>AliYun Maven spring</name>
-            <url>https://maven.aliyun.com/repository/spring</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>AliMavenSpringPlugin</id>
-            <name>AliYun Maven spring-plugin</name>
-            <url>https://maven.aliyun.com/repository/spring-plugin</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>AliMavenGoogle</id>
-            <name>AliYun Maven google</name>
-            <url>https://maven.aliyun.com/repository/google</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <!-- 仓库结束 -->
-
-    <!-- Profile定义开始 -->
-    <!-- 注意，Maven Profile不是Spring Profile -->
-    <!-- 注意，不要同时激活多个Maven Profile -->
+    <!-- Maven Profiles定义 开始 -->
+    <!-- 注意：Maven Profile不是Spring Profile -->
+    <!-- 注意：本项目中不要同时激活多个Maven Profile -->
     <!-- 使用Maven指定Profile打包的用法：命令行： ./mvnw package -P profile_name -->
     <profiles>
         <!-- 开发阶段Profile，默认 -->
@@ -145,8 +90,20 @@
             <properties>
                 <activatedProperties>production</activatedProperties>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-java</artifactId>
+                    <version>2.5.0</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.aliyun.openservices</groupId>
+                    <artifactId>aliyun-log-logback-appender</artifactId>
+                    <version>0.1.15</version>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
-    <!-- Profile定义结束 -->
+    <!-- Maven Profiles定义 结束 -->
 
 </project>

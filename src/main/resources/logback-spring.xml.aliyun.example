@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spring Logback 配置： 输出日志到阿里云日志服务（阿里云SLS） -->
+<!-- 整理编辑： yanwenkun@foxmail.com -->
+
+<!-- Spring 文档：理解日志等级 -->
+<!-- https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-custom-log-levels -->
+
+<!-- 使用阿里云SLS收集日志，需要为Maven项目添加依赖： -->
+<!--
+    <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>2.5.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.aliyun.openservices</groupId>
+        <artifactId>aliyun-log-logback-appender</artifactId>
+        <version>0.1.15</version>
+    </dependency>
+-->
+
+<configuration>
+
+    <!-- 指定 Spring Profile -->
+    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!production" -->
+    <springProfile name="production">
+
+        <!-- 引入基础默认配置，具体内容请查看Spring源代码： -->
+        <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml -->
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+        <!-- 使用阿里云SLS收集日志 -->
+        <!-- 阿里云官方文档： -->
+        <!-- https://github.com/aliyun/aliyun-log-logback-appender/blob/master/README_CN.md -->
+
+        <!-- 为了防止进程退出时，内存中的数据丢失，请加上此选项 -->
+        <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+        <appender name="ALIYUN" class="com.aliyun.openservices.log.logback.LoghubAppender">
+            <!-- 必填项 开始 -->
+            <!-- 账号及网络配置 -->
+            <endpoint>日志服务的 HTTP 地址</endpoint>
+            <accessKeyId>用户身份标识 accesskey id</accessKeyId>
+            <accessKeySecret>用户身份标识 accesskey secret</accessKeySecret>
+            <!-- SLS 项目配置 -->
+            <project>日志服务的 project 名</project>
+            <logStore>日志服务的 logstore 名</logStore>
+            <!-- 必填项 结束-->
+
+            <!-- 可选项 开始 -->
+            <!-- 不需要的可选项，请删除，避免版本更新与默认配置不同 -->
+            <topic>指定日志主题，默认为 ""</topic>
+            <source>指定日志来源，默认为应用程序所在宿主机的 IP</source>
+            <!-- 可选项：性能设置 -->
+            <!-- 详见官方文档，以下为默认配置 -->
+            <totalSizeInBytes>104857600</totalSizeInBytes>
+            <maxBlockMs>60000</maxBlockMs>
+            <ioThreadCount>8</ioThreadCount>
+            <batchSizeThresholdInBytes>524288</batchSizeThresholdInBytes>
+            <batchCountThreshold>4096</batchCountThreshold>
+            <lingerMs>2000</lingerMs>
+            <retries>10</retries>
+            <baseRetryBackoffMs>100</baseRetryBackoffMs>
+            <maxRetryBackoffMs>100</maxRetryBackoffMs>
+            <!-- 可选项：通过配置 encoder 的 pattern 自定义 log 的格式 -->
+            <encoder>
+                <pattern>%d %-5level [%thread] %logger{0}: %msg</pattern>
+            </encoder>
+            <!-- 可选项：设置 time 字段呈现的格式 -->
+            <timeFormat>yyyy-MM-dd'T'HH:mmZ</timeFormat>
+            <!-- 可选项：设置 time 字段呈现的时区 -->
+            <!-- 如果不正常，设置为 Asia/Shanghai -->
+            <timeZone>UTC</timeZone>
+            <!-- 可选项 结束 -->
+        </appender>
+
+        <!-- 可用来获取StatusManager中的状态 -->
+        <!-- 
+            <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+        -->
+
+        <!-- 指定基础日志级别 -->
+        <root level="ERROR">
+            <!-- 指定包括哪些日志记录方式，可添加多个 appender-ref -->
+            <appender-ref ref="ALIYUN"/>
+        </root>
+
+        <!-- 为某些类单独指定日志级别 -->
+        <logger name="com.example" level="INFO"/>
+
+    </springProfile>
+
+</configuration>
