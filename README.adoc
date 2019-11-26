@@ -201,7 +201,8 @@ export SPRING_PROFILES_ACTIVE=production
 
 * 本项目中的各 Spring 配置文件已包含少量日志配置供参考
 * 比如最常用的 `logging:level:something: DEBUG`
-* 如果使用 IDE，可翻阅 logging 下的可配置项
+* 可借助 IDE 翻阅 logging 下的可配置项
+* 完整配置项可参考： https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html[Common Application properties]
 
 === 配置 `logback-spring.xml`
 
