@@ -21,7 +21,7 @@
         <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/file-appender.xml -->
         <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
 
-        <!-- 日志文件名不在此处配置，请修改配置文件【 application-{$profile}.yml 】 -->
+        <!-- 日志文件名不在此处配置，请修改配置文件【 application-{$profile}.yaml 】 -->
 
         <!-- 指定基础日志级别 -->
         <root level="WARN">

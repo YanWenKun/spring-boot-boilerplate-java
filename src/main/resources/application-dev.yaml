@@ -1,5 +1,5 @@
 # 开发阶段 Profile 配置
-# 继承 application.yml 中的配置，并覆盖
+# 继承 application.yaml 中的配置，并覆盖
 
 logging:
   level: # 配置 Spring 组件的日志级别
