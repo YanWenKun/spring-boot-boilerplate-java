@@ -116,6 +116,7 @@ cd spring-boot-boilerplate-java
 2. 全局搜索 `com.example.demo` ，并替换为你的软件包名称，比如 `fun.yanwenkun.sample`
 3. 全局搜索 `com.example` ，并替换为你的组织名称，比如 `fun.yanwenkun`
 4. 修改 `pom.xml` 中的软件制品信息，并管理你的依赖项
+5. 修改代码文件对应的路径、文件名（可通过IDE完成）
 
 == 配置集的使用
 
@@ -257,7 +258,7 @@ export SPRING_PROFILES_ACTIVE=production
 ** 亚马逊开源的 OpenJDK
 ** 为 `8` 和 `11` 提供长期支持
 
-如果你感到选择困难，请使用 https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=openj9[AdoptOpenJDK11+OpenJ9] 。
+如果你感到选择困难，请使用 https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot[AdoptOpenJDK11+HotSpot] 。
 
 == 为什么不默认使用 Lombok
 
