@@ -1,5 +1,6 @@
-FROM java:11
+FROM openjdk:11-jre-stretch
+VOLUME /app
 EXPOSE 8080
-ARG JAR_FILE
-ADD target/${JAR_FILE} /demo.jar
-ENTRYPOINT ["java", "-jar","/demo.jar"]
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar","/app.jar"]
