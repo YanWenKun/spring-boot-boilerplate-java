@@ -1,27 +1,31 @@
 ### Java／Kotlin／Spring／Vert.x 项目常用 .gitattributes 模板 ###
 ### GitHub地址： https://github.com/yanwenkun/git-ignore-and-attributes-for-java ###
 ### 整理者： yanwenkun@foxmail.com ###
-### 版本： 20191121-1 ###
+### 版本： 20191219-1 ###
 
-# 自动检测文本文件并统一为LF行尾
+# 自动检测文本文件并统一为LF换行符
 * text=auto eol=lf
 
-# 专有的Windows文件使用CRLF
+# 专有的Windows文件使用CRLF换行符
 *.cmd text eol=crlf
 *.ps1 text eol=crlf
 *.bat text eol=crlf
 
-# 所有脚本与配置均使用LF换行
+# 显示指定文件为文本类型，并使用LF换行符
+*.java text eol=lf
+*.adoc text eol=lf
+*.gradle text eol=lf
+*.kts text eol=lf
+*.css text eol=lf
+*.htm text eol=lf
+*.html text eol=lf
 *.sh text eol=lf
 *.conf text eol=lf
 *.properties text eol=lf
 *.xml text eol=lf
-*.java text eol=lf
 *.jsp text eol=lf
 *.json text eol=lf
 *.js text eol=lf
-*.html text eol=lf
-*.css text eol=lf
 *.map text eol=lf
 *.kt text eol=lf
 *.kts text eol=lf
@@ -39,3 +43,10 @@
 *.woff binary
 *.woff2 binary
 *.eot binary
+
+.class binary
+*.dll binary
+*.ear binary
+*.jar binary
+*.so  binary
+*.war binary
