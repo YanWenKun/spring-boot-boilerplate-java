@@ -4,16 +4,10 @@
 
   <mirrors>
     <mirror>
-      <id>AliyunMavenCentral</id>
-      <name>Aliyun Maven Central</name>
-      <url>https://maven.aliyun.com/repository/central</url>
-      <mirrorOf>central</mirrorOf>
-    </mirror>
-    <mirror>
-      <id>AliyunMavenJcenter</id>
-      <name>Aliyun Maven Jcenter</name>
-      <url>https://maven.aliyun.com/repository/jcenter</url>
-      <mirrorOf>jcenter</mirrorOf>
+      <id>AliyunMavenPublic</id>
+      <name>Aliyun Maven Public</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+      <mirrorOf>central,jcenter</mirrorOf>
     </mirror>
     <mirror>
       <id>AliyunMavenSpring</id>
