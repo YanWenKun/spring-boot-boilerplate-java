@@ -35,10 +35,10 @@ spring-boot-boilerplate-java
     │  │                  DemoApplication.java
     │  │                  
     │  └─resources
-    │      │  application-dev.yaml
-    │      │  application-production.yaml
-    │      │  application-staging.yaml
-    │      │  application.yaml
+    │      │  application-dev.yml
+    │      │  application-production.yml
+    │      │  application-staging.yml
+    │      │  application.yml
     │      │  logback-spring.xml
     │      │  logback-spring.xml.aliyun.example
     │      │  logback-spring.xml.file.example
@@ -77,7 +77,7 @@ spring-boot-boilerplate-java
 * 包含一个基本的 `README.adoc` 自述文件，以便参考 AsciiDoc 语法
 ** AsciiDoc 兼容 Markdown 语法，可在 `adoc` 中直接写 Markdown
 
-* 配置文件使用YAML （ `application.yaml` 取代 `application.properties` ）
+* 配置文件使用YAML （ `application.yml` 取代 `application.properties` ）
 
 * 项目配置集
 ** 三个 Maven Profile: `dev`, `staging`, `production`
@@ -198,7 +198,7 @@ export SPRING_PROFILES_ACTIVE=production
 
 == 日志的配置
 
-=== 配置 `application-{$profile}.yaml`
+=== 配置 `application-{$profile}.yml`
 
 * 本项目中的各 Spring 配置文件已包含少量日志配置供参考
 * 比如最常用的 `logging:level:something: DEBUG`
@@ -214,7 +214,7 @@ export SPRING_PROFILES_ACTIVE=production
 
 === 一些原则
 
-* 原则上，尽量多配置于 `application-{$profile}.yaml` 中，少配置于 `logback-spring.xml` 中，便于管理，也减少文件长度
+* 原则上，尽量多配置于 `application-{$profile}.yml` 中，少配置于 `logback-spring.xml` 中，便于管理，也减少文件长度
 * 编写代码时不要用 System.out.println() ，而是使用 Slf4j 分等级记录日志
 ** 可用等级（从低到高）： `TRACE` `DEBUG` `INFO` `WARN` `ERROR`
 ** Lombok 可以使用 @Slf4j 注解减少代码，但本项目没有引入该依赖
