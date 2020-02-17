@@ -1,50 +1,62 @@
 ### Java／Kotlin／Spring／Vert.x 项目常用 .gitattributes 模板 ###
 ### GitHub地址： https://github.com/yanwenkun/git-ignore-and-attributes-for-java ###
 ### 整理者： yanwenkun@foxmail.com ###
-### 版本： 20191219-1 ###
+### 版本： 20200212-1 ###
 
-# 自动检测文本文件并统一为LF换行符
+# 参考手册： https://git-scm.com/docs/gitattributes
+
+# 该行表示 Git 将自动判断文件是【纯文本】还是【二进制】
+# 并将所有【纯文本】统一为 LF 换行符（以下显式指定的扩展名除外）
+# 如果用于 Java 以外的项目，请视情况修改为默认方式：
+# * text=auto
 * text=auto eol=lf
 
-# 专有的Windows文件使用CRLF换行符
+# 举例说明：
+# text 表示将所有 .txt 扩展名的文件视为纯文本文件
+# eol=lf 表示强制以 LF（即 \n） 作为换行符
+*.txt text eol=lf
+
+# 指定 CRLF 换行符
 *.cmd text eol=crlf
 *.ps1 text eol=crlf
 *.bat text eol=crlf
 
-# 显示指定文件为文本类型，并使用LF换行符
-*.java text eol=lf
-*.adoc text eol=lf
-*.gradle text eol=lf
-*.kts text eol=lf
-*.css text eol=lf
-*.htm text eol=lf
-*.html text eol=lf
-*.sh text eol=lf
-*.conf text eol=lf
-*.properties text eol=lf
-*.xml text eol=lf
-*.jsp text eol=lf
-*.json text eol=lf
-*.js text eol=lf
-*.map text eol=lf
-*.kt text eol=lf
-*.kts text eol=lf
+# 指定 LF 换行符
+*.adoc text eol=lf
+*.conf text eol=lf
+*.css text eol=lf
+*.gradle text eol=lf
+*.htm text eol=lf
+*.html text eol=lf
+*.java text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.jsp text eol=lf
+*.kt text eol=lf
+*.kts text eol=lf
+*.kts text eol=lf
+*.map text eol=lf
+*.md text eol=lf
+*.properties text eol=lf
+*.sh text eol=lf
+*.ts text eol=lf
+*.xml text eol=lf
 
-# 二级制文件不做修改
-*.doc binary
-*.docx binary
-*.xls binary
-*.xlsx binary
-*.png binary
-*.jpg binary
-*.gif binary
-*.svg binary
-*.ttf binary
-*.woff binary
-*.woff2 binary
-*.eot binary
+# 二级制文件不考虑行尾，不考虑 diff
+*.doc binary
+*.docx binary
+*.eot binary
+*.gif binary
+*.jpg binary
+*.png binary
+*.svg binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.xls binary
+*.xlsx binary
 
-.class binary
+*.class binary
 *.dll binary
 *.ear binary
 *.jar binary
