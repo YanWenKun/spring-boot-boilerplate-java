@@ -276,14 +276,16 @@ export SPRING_PROFILES_ACTIVE=production
 
 如何配置本地 Maven 使用镜像源：
 
-将 link:docs/settings.xml[settings.xml] 复制到【 用户主目录/.m2/ 】下。
+将【 link:docs/maven/settings.xml[settings.xml] 】复制到【 用户主目录/.m2/ 】下。
 或执行命令：
 
 [source,sh]
 ----
 mkdir ~/.m2/
-cp docs/settings.xml ~/.m2/
+cp docs/maven/settings.xml ~/.m2/
 ----
+
+如需 Maven Central 以外的仓库源，请参考【 link:docs/maven/settings_more-repos.xml[settings_more-repos.xml] 】。
 
 == 许可
 

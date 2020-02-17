@@ -1,0 +1,14 @@
+<!-- 配置 Maven 使用阿里云的镜像 -->
+<!-- 请将本文件置于： ~/.m2/settings.xml -->
+<settings>
+
+  <mirrors>
+    <mirror>
+      <id>aliyun-public</id>
+      <name>Aliyun Maven Central and JCenter</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+      <mirrorOf>central,jcenter</mirrorOf>
+    </mirror>
+  </mirrors>
+
+</settings>

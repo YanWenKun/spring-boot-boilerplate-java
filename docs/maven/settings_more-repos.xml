@@ -1,0 +1,92 @@
+<!-- 开启更多仓库来源，并配置 Maven 使用阿里云的镜像 -->
+<!-- 请将本文件置于： ~/.m2/settings.xml -->
+<settings>
+
+  <mirrors>
+    <mirror>
+      <id>aliyun-public</id>
+      <name>Aliyun Maven Central and JCenter</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+      <mirrorOf>central,jcenter</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>aliyun-spring</id>
+      <name>Aliyun Maven Spring Milestone</name>
+      <url>https://maven.aliyun.com/repository/spring</url>
+      <mirrorOf>spring-libs-milestone</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>aliyun-spring-plugin</id>
+      <name>Aliyun Maven Spring-Plugins Release</name>
+      <url>https://maven.aliyun.com/repository/spring-plugin</url>
+      <mirrorOf>spring-plugins-release</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>aliyun-google</id>
+      <name>Aliyun Maven Google</name>
+      <url>https://maven.aliyun.com/repository/google</url>
+      <mirrorOf>google</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>aliyun-gradle-plugin</id>
+      <name>Aliyun Maven Gradle Plugins</name>
+      <url>https://maven.aliyun.com/repository/gradle-plugin</url>
+      <mirrorOf>gradle-plugins</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>aliyun-apache-snapshots</id>
+      <name>Aliyun Apache Snapshots</name>
+      <url>https://maven.aliyun.com/repository/apache-snapshots</url>
+      <mirrorOf>apache-snapshots</mirrorOf>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+    <profile>
+      <id>more-repos</id>
+      <repositories>
+        <repository>
+          <id>jcenter</id>
+          <name>Bintray JCenter</name>
+          <url>https://jcenter.bintray.com</url>
+        </repository>
+        <repository>
+          <id>spring-libs-milestone</id>
+          <name>Spring Libs Milestones</name>
+          <url>https://repo.spring.io/libs-milestone</url>
+        </repository>
+        <repository>
+          <id>google</id>
+          <name>Google Maven Repository</name>
+          <url>https://maven.google.com</url>
+        </repository>
+        <repository>
+          <id>apache-snapshots</id>
+          <name>Apache Snapshots</name>
+          <url>https://repository.apache.org/snapshots</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+
+      <pluginRepositories>
+        <pluginRepository>
+          <id>spring-plugins-release</id>
+          <name>Spring Plugins Release</name>
+          <url>https://repo.spring.io/plugins-release</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>gradle-plugins</id>
+          <name>Gradle Plugins</name>
+          <url>https://plugins.gradle.org/m2</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>more-repos</activeProfile>
+  </activeProfiles>
+
+</settings>
