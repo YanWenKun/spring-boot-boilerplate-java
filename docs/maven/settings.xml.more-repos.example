@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 开启更多仓库来源，并配置 Maven 使用阿里云的镜像 -->
 <!-- 请将本文件置于： ~/.m2/settings.xml -->
 <settings>

@@ -285,7 +285,7 @@ mkdir ~/.m2/
 cp docs/maven/settings.xml ~/.m2/
 ----
 
-如需 Maven Central 以外的仓库源，请参考【 link:docs/maven/settings_more-repos.xml[settings_more-repos.xml] 】。
+如需 Maven Central 以外的仓库源，请参考【 link:docs/maven/settings.xml.more-repos.example[settings.xml.more-repos.example] 】。
 
 == 许可
 
