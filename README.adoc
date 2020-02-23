@@ -1,31 +1,51 @@
-= Spring Boot 样板项目（使用Java与Maven）
+:toc:
+:toc-title: 目录
+:author: YAN Wenkun
+:email: yanwenkun@foxmail.com
+
+= Spring Boot 样板项目（使用 Java 与 Maven）
 
 本样板项目基于 https://spring.io/[Spring] 官方的 https://start.spring.io/[Spring Initializr] 生成的 https://spring.io/projects/spring-boot/[Spring Boot] 项目，
-并添加一些实用的常见配置，便于在新项目启动时“简单修改POM即可复用”。
+并添加一些实用的常见配置，便于在新项目启动时“简单修改即可复用”。
 
 同时，本项目也将不断跟进上游最新版本，以便下游项目一站式更新。
 
-目录结构：
+本项目以容器或云引擎（例： https://www.aliyun.com/product/sae[阿里云 SAE] ）为部署目标，简化传统的复杂配置，减少更新维护成本。
+
+文件目录结构：
 
 ----
 spring-boot-boilerplate-java
 │  .gitattributes
 │  .gitignore
+│  docker-compose.yml
+│  Dockerfile
 │  LICENSE
 │  mvnw
 │  mvnw.cmd
 │  pom.xml
 │  README.adoc
-│  
+│
 ├─.mvn
 │  └─wrapper
 │          maven-wrapper.jar
 │          maven-wrapper.properties
 │          MavenWrapperDownloader.java
-│          
+│
 ├─docs
-│      settings.xml
-│      
+│  │  Upgrade-Checklist.adoc
+│  │
+│  ├─logback
+│  │      logback-spring.xml.example
+│  │      logback-spring.xml.file.example
+│  │      logback-spring.xml.jdbc.example
+│  │      logback-spring.xml.sls.example
+│  │      README.logback.adoc
+│  │
+│  └─maven
+│          settings.xml
+│          settings.xml.more-repos.example
+│
 └─src
     ├─main
     │  ├─java
@@ -33,23 +53,18 @@ spring-boot-boilerplate-java
     │  │      └─example
     │  │          └─demo
     │  │                  DemoApplication.java
-    │  │                  
+    │  │
     │  └─resources
     │      │  application-dev.yml
-    │      │  application-production.yml
-    │      │  application-staging.yml
+    │      │  application-prod.yml
     │      │  application.yml
-    │      │  logback-spring.xml
-    │      │  logback-spring.xml.aliyun.example
-    │      │  logback-spring.xml.file.example
-    │      │  logback-spring.xml.jdbc.example
-    │      │  
+    │      │
     │      ├─static
     │      │      .gitkeep
-    │      │      
+    │      │
     │      └─templates
     │              .gitkeep
-    │              
+    │
     └─test
         └─java
             └─com
@@ -72,35 +87,38 @@ spring-boot-boilerplate-java
 ** 为空目录添加 `.gitkeep` 文件（0字节，仅占位，避免空目录被忽略）
 
 * Maven Wrapper 使用【阿里云】中国大陆的下载地址，改善下载速度
-** Maven 仓库源并未配置到国内，请参照 <<配置 Maven 使用镜像源>> 进行配置。
+** Maven 仓库源并未配置到国内，请参照 <<配置 Maven 使用镜像源>> 进行配置
 
 * 包含一个基本的 `README.adoc` 自述文件，以便参考 AsciiDoc 语法
 ** AsciiDoc 兼容 Markdown 语法，可在 `adoc` 中直接写 Markdown
 
-* 配置文件使用YAML （ `application.yml` 取代 `application.properties` ）
+* 配置文件使用 YAML 格式（ `application.yml` 取代 `application.properties` ）
 
-* 项目配置集
-** 三个 Maven Profile: `dev`, `staging`, `production`
-** 三个 Spring Profile: `dev`, `staging`, `production`
-** 注意两者的作用域不同，此处只是为了便于项目管理而使用了一致的名字。详见 <<配置集的理解>>
+* 两个项目配置集
+** 两个 Maven Profile: `dev`, `prod`
+** 两个 Spring Profile: `dev`, `prod`
+** 启用 Maven Profile `prod` 会自动启用对应的 Spring Profile `prod`。而 `dev` 亦然
 
-* Logback 日志配置 `logback-spring.xml`
-** 默认根据 Profile 选用控制台输出／文件输出（简单配置）
-** 附带样例文件，方便详细配置：
-*** `logback-spring.xml.file.example` 文件输出（详细配置）
-*** `logback-spring.xml.jdbc.example` 数据库输出（JDBC）
-*** `logback-spring.xml.aliyun.example` 阿里云SLS（阿里云日志服务）
+* Docker 描述文件（`Dockerfile`、`docker-compose.yml`）
+** 参照官方最佳实践，使用多段构建
+
+* `docs` 目录下附带若干帮助文件
+** Logback 日志配置样例
+** Maven 镜像源配置样例
 
 == 运行指引
 
-* 如果你使用 IDEA / Spring Tool Suite，直接运行项目即可。
+* 如果你使用 Intellij IDEA / Spring Tool Suite，直接运行项目即可。
+
+=== 使用命令行运行
 
 * 如果你不想使用 IDE，可以用命令行的方式运行 Spring Boot 项目，你需要先在本地安装：
 
 ** Git
 ** JDK 11 或更高版本
 
-** 执行命令：
+执行命令：
+
 [source,sh]
 ----
 git clone https://github.com/yanwenkun/spring-boot-boilerplate-java.git
@@ -108,137 +126,123 @@ cd spring-boot-boilerplate-java
 ./mvnw clean spring-boot:run
 ----
 
-按 `Ctrl + C` 可终止运行
+按 `Ctrl + C` 可终止运行。
+
+=== 使用 Docker Compose 运行
+
+如果你安装有 Docker Desktop，直接运行以下命令，即可构建镜像并运行容器：
+
+[source,sh]
+----
+git clone https://github.com/yanwenkun/spring-boot-boilerplate-java.git
+cd spring-boot-boilerplate-java
+docker-compose up --build
+----
+
+按 `Ctrl + C` 可终止运行。
 
 == 修改成你的项目
 
-1. 全局搜索 `DemoApplication` ，并替换为你的程序名称，比如 `SampleApplication` （建议保留 Application 后缀）
+1. 全局搜索 `DemoApplication` ，并替换为你的程序名称，比如 `SampleApplication` （建议保留 `Application` 后缀）
 2. 全局搜索 `com.example.demo` ，并替换为你的软件包名称，比如 `fun.yanwenkun.sample`
 3. 全局搜索 `com.example` ，并替换为你的组织名称，比如 `fun.yanwenkun`
-4. 修改 `pom.xml` 中的软件制品信息，并管理你的依赖项
-5. 修改代码文件对应的路径、文件名（可通过IDE完成）
+4. 修改 `pom.xml` 中的软件制品信息（GAV），并管理你的依赖项
+5. 修改代码文件对应的路径、文件名（可通过 IDE 的重构功能完成）
+6. 修改 `docker-compose.yml` 中的容器与镜像名称
 
 == 配置集的使用
+
+.配置集与运行环境样板
+|===
+|启用配置集 |运行环境 |数据源 |日志级别（业务） |日志级别（框架）
+
+|`@Profile("dev")`
+|开发环境 Development
+|运行时 H2 内存数据库
+|TRACE
+|INFO
+
+.3+|`@Profile("prod")`
+|线上测试环境 Testing
+|测试数据库
+|DEBUG
+|INFO
+
+|预发环境 Staging
+|生产数据库
+|INFO
+|WARN
+
+|生产环境 Production
+|生产数据库
+|WARN
+|ERROR
+|===
+
+在实际生产中，该表会更为复杂，但原则不变：使问题尽早暴露、尽早解决。 +
+从脱离本地开发环境开始，所有代码与依赖项均应与生产环境一致，仅配置不同。 +
 
 === Profile 用法
 
 * Spring Profile 在 Java/Kotlin 代码中的用法：
-** 使用Spring注解： `@Profile("staging")`
+** 使用Spring注解： `@Profile("dev")`
+** 未标 `@Profile` 注解的代码段，均与配置集无关
 
-* Maven Profile 不关心 Java 代码中的注解，只关心编译资源
+* Maven Profile 不关心 Java 代码中的注解，只关心编译资源（依赖项），`pom.xml` 中对此有举例
 
 === 以配置集运行
 
+* 使用 IDE 可以直接切换配置集
+
 * 默认激活： `dev`
 
-* 以 `staging` 运行：
+* 以 `prod` 运行：
 [source,sh]
 ----
-./mvnw clean spring-boot:run -P staging
-----
-
-* 以 `production` 运行：
-[source,sh]
-----
-./mvnw clean spring-boot:run -P production
+./mvnw clean spring-boot:run -P prod
 ----
 
 * 如何修改默认配置集：
 ** 修改 `pom.xml` 中的 `activeByDefault` 属性
-** 注意仅保持1个 `activeByDefault` 为 `true`
+** 注意仅保持 1 个 `activeByDefault` 为 `true`
+*** Maven 可以同时激活多个 Profile，但 Spring 只允许同时激活一个
 
-== 配置集的理解
-
-* Profile 直译即“档案”，此处理解为配置、配置集
-
-* 本项目中的3个 Profile 是有意选择的单词，长度递增：
-** 开发阶段： `dev`
-** 验证阶段： `staging`
-** 生产阶段： `production`
-
-=== Staging
-
-* staging 翻译成“验证阶段”
-** 如果翻译成“测试阶段”，流程上太靠前
-** 如果翻译成“预发布阶段”，流程上太靠后
-** “验证”更为概括而居中。本项目中仅包含这一中间阶段，如有需要可以再添加细分
-** 理解 Staging 阶段在敏捷开发中的意义： http://www.shuker.top/technology/devops/deployments-best-practices/
-
-=== Profiles
-
-* 在本项目中有两种 Profile：
- 1. Spring Profile
- 2. Maven Profile
-
-* 为了便于统一管理，本项目中 Spring Profile 和 Maven Profile 共用同一套名称，并且对两者进行了关联
-** 比如， Maven 启用了 `staging` ， Spring 也会启用 `staging`
-** 但反过来不会
-* 如果配置不当，这两种 Profile 可能会冲突
-** 同一时间只能有一个 Spring Profile 激活
-** 同一时间可以有多个 Maven Profile 激活（在本项目中不推荐这么做）
-
-=== 概念上的简化
-
-* 开发、验证、生产：
- 1. 既是软件生命周期中的“阶段”
- 2. 也是运维与服务治理中的“环境”
-* 这是一个“偷懒”的做法，将阶段和环境合为一谈，主要目的在于减少心智负担
-** 但扩大开发规模的时候，还是要注意概念上的区分
-
-=== 更多信息
-
-* Maven 与 Spring 共用 Profile name 并不是高枕无忧的设计
-** 主要看 Profile 是否与自动化流水线能够流畅配合
-* 如果不需要 Maven 根据环境／阶段管理不同的依赖，可以在 `pom.xml` 中删除 `Profiles` 相关定义
-** 如果去掉了 Maven Profiles，可以使用环境变量，使 Spring Boot 程序运行时直接调用不同配置集：
-[source,sh]
-----
-export SPRING_PROFILES_ACTIVE=production
-----
+* `Dockerfile` 已配置为默认使用 `prod`
+* 编译服务如 Jenkins 应配置相关参数，代码仓库本身应面向开发者
 
 == 日志的配置
 
-=== 配置 `application-{$profile}.yml`
+* 容器环境下，日志输出到 STDOUT（标准输出、命令行输出）即可，由容器管理日志的收集
 
-* 本项目中的各 Spring 配置文件已包含少量日志配置供参考
-* 比如最常用的 `logging:level:something: DEBUG`
-* 可借助 IDE 翻阅 logging 下的可配置项
-* 完整配置项可参考： https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html[Common Application properties]
+* 程序只需要配置日志输出等级，修改 `application-{$profile}.yml` 即可
 
-=== 配置 `logback-spring.xml`
+* 如需详细配置 Logback，请参考本项目中的 link:docs/logback/README.logback.adoc[Spring Logback 日志配置参考]
 
-* 如果一些参数没有被 Spring 属性化，需要单独配置 `logback-spring.xml`
-* 进一步的配置请参考 `src/main/resources` 下的 `.example` 文件
-* 如果感到困惑，请先参考 `logback-spring.xml.file.example`
-* 控制台输出的配置较为简单，因此没有单独列出
+建议：
 
-=== 一些原则
-
-* 原则上，尽量多配置于 `application-{$profile}.yml` 中，少配置于 `logback-spring.xml` 中，便于管理，也减少文件长度
-* 编写代码时不要用 System.out.println() ，而是使用 Slf4j 分等级记录日志
+* 编写代码时不要用 `System.out.println()`，而是使用 Slf4j 分等级记录日志
 ** 可用等级（从低到高）： `TRACE` `DEBUG` `INFO` `WARN` `ERROR`
 ** Lombok 可以使用 @Slf4j 注解减少代码，但本项目没有引入该依赖
-* 生产环境建议关闭控制台输出
 
-
-= 项目之外
-
-== JDK 的选择
+== 附录一：JDK 的选择
 
 === Oracle JDK 的收费背景
 
-* 在以往几乎完全免费的 https://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle JDK]，从2019年开始，只对开发、个人使用免费，用于生产环境需要付费。
-* 而 https://jdk.java.net/[Oracle OpenJDK] 只更新最新GA大版本，每当新的大版本GA，老版本即停止更新。
-** Oracle 这么做是为了鼓励开发者跟进新版本，同时也扩大老版本的维护收费。
-** 但是企业开发，“追新”是为了保持先进、与主流同步，“追最新”则容易踩坑、增加成本。所谓“领先一步是先驱，领先两步是先烈” :)
+* 在以往几乎完全免费的 https://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle JDK] ，从2019年开始，只对开发、个人使用免费，用于生产环境需要付费
+* 而 https://jdk.java.net/[Oracle OpenJDK] 只更新最新 GA 大版本，每当新的大版本 GA，老版本即停止更新
+** Oracle 这么做是为了鼓励开发者跟进新版本，同时也扩大老版本的维护收费
+
+* 个人建议
+** 对于企业开发，“追新”是为了保持先进、与主流同步，“追最新”则容易踩坑、增加成本。正所谓“领先一步是先驱，领先两步是先烈” :-)
+** Java 的下一个长期支持版本（LTS）是 17，在其广泛可用（GA）之前，建议维持在 Java 11
 
 === 使用其它提供方的 OpenJDK
 
 考虑以下几点：
 
+* 开源
 * 有健壮支持
 * 完全免费
-* 开源
 
 推荐如下：
 
@@ -246,7 +250,7 @@ export SPRING_PROFILES_ACTIVE=production
 ** 来自 Java 社区重要成员支持的 OpenJDK
 ** 目前涵盖 `8` ~ `13` 所有大版本
 ** 除了 JDK 之外，每个版本还提供 JRE
-** 除了 `HotSpot` JVM 之外，还提供 `OpenJ9` JVM （来自 IBM 开源的 JVM，为云环境、容器化优化，内存占用小）
+** 除了 `HotSpot` JVM 之外，还提供 `OpenJ9` JVM （来自 IBM 开源的 JVM，为云环境、容器化优化，内存占用小，提供快速启动选项）
 ** OpenJ9 可选择 Large Heap 预配置版本（堆内存 > 57 GiB），该配置以更大内存占用为代价，提高吞吐与响应，大幅减少 GC 时的暂停时间
 
 * https://www.aliyun.com/product/dragonwell[Alibaba Dragonwell]
@@ -258,15 +262,105 @@ export SPRING_PROFILES_ACTIVE=production
 ** 亚马逊开源的 OpenJDK
 ** 为 `8` 和 `11` 提供长期支持
 
-如果你感到选择困难，请使用 https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot[AdoptOpenJDK11+HotSpot] 。
+如果你感到选择困难，请使用 https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot[AdoptOpenJDK11+HotSpot] ，它的兼容性最佳。
 
-== 为什么不默认使用 Lombok
+== 附录二：配置集的理解
+
+* Profile 直译即“档案”，此处理解为配置、配置集
+
+* 配置集包含：配置项 + 专有依赖 + 专有代码
+
+* 对于代码本身，为避免过度复杂，仅使用 2 个配置集：
+** 开发阶段专有代码： `@Profile("dev")`
+** 生产阶段专有代码： `@Profile("prod")`
+
+=== Profile 与 Profile 的不同
+
+* 在本项目中有两种 Profile：
+ 1. Spring Profile
+ 2. Maven Profile
+
+* 两者的实际作用域不同
+** Spring Profile 关心代码与配置项
+** Maven Profile 关心编译与依赖项
+
+* 为了便于统一管理，本项目中 Spring Profile 和 Maven Profile 共用同一套名称，并通过配置上的绑定，对两者进行了关联
+** 比如，Maven 启用了 `prod`，Spring 也会启用 `prod`
+** 但反过来不会
+
+* 如果配置不当，这两种 Profile 可能会冲突
+** 同一时间只能有一个 Spring Profile 激活
+** 同一时间可以有多个 Maven Profile 激活（在本项目中不推荐这么做）
+
+=== Profile 的命名
+
+* `dev` 与 `prod` 两个命名是 Java 世界中的常见习惯，简洁明了，本项目尊重该习惯
+
+* Profile 命名并无绝对标准，比如 https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#profile-specific-configuration[Spring 官方文档]
+中就使用了 `dev`、`staging`、`production` 作为例子
+
+* 为了避免开发者误解“Profile”与“运行环境”之间的关系，本项目仅使用 `dev` 与 `prod` 这两个 Profile
+** `dev` 仅在开发环境有效，脱离开发环境即开始使用 `prod`，使潜在问题尽早暴露
+
+实际上，在高度 CI/CD 化之后，开发者不需要过多关心运行环境，而是应该精简配置、写好配置样板，供运维在不同阶段灵活部署。
+
+某种意义上，这两个 Profile 的含义可以理解为 `DEBUG` 与 `RELEASE`，或者 `local` 与 `online`。
+
+=== 概念上的简化
+
+* 开发（本地编码）、验证（各类测试）、生产（发布上线）：
+ 1. 既是软件生命周期中的“阶段”
+ 2. 也是运维与服务治理中的“环境”
+* 分得过于详细，有过度设计之虞，概念越多越容易出错
+* 作为“偷懒”的做法，将阶段和环境合为一谈，主要目的在于减少心智负担
+** 但扩大开发规模的时候，还是要注意概念上的区分
+
+=== 更多信息
+
+* Maven 与 Spring 共用 Profile name 并不是高枕无忧的设计
+** 主要看 Profile 是否与自动化流水线能够流畅配合
+* 如果不需要 Maven 根据环境／阶段管理不同的依赖，可以在 `pom.xml` 中删除 `Profiles` 相关定义
+** 如果去掉了 Maven Profiles，可以使用环境变量，使 Spring Boot 程序运行时直接调用不同配置集：
+
+[source,sh]
+----
+export SPRING_PROFILES_ACTIVE=prod
+----
+
+== 附录三
+
+=== 版本升级清单
+
+见 link:docs/Upgrade-Checklist.adoc[版本升级清单]
+
+=== 为什么不默认使用 Lombok
 
 从工程管理的角度出发，Java 项目保持其代码风格的延续是很重要的。而 Lombok 的侵入性，对老项目而言是需要权衡的，请根据团队的意见做出选择。
 
 对于没有历史负担的新项目，可以考虑 https://github.com/yanwenkun/spring-boot-boilerplate-kotlin[Kotlin] 。
 
-== 配置 Maven 使用镜像源
+=== 使用 Maven 构建 Docker 镜像
+
+在不配置 Maven 插件（即不改动 `pom.xml`）的前提下，最简单的方法是使用命令行调用 Google Jib：
+
+* 用法1：构建镜像
+
+[source,sh]
+----
+./mvnw com.google.cloud.tools:jib-maven-plugin:dockerBuild -Dimage="example/demo:dev"
+----
+
+* 用法2：构建镜像并推送至仓库（Docker Registry）
+
+[source,sh]
+----
+./mvnw com.google.cloud.tools:jib-maven-plugin:build -Dimage="example/demo:dev"
+----
+
+注意修改镜像名称与标签 `example/demo:dev`。 +
+推送至仓库前需要先登录（`docker login`）。
+
+=== 配置 Maven 使用镜像源
 
 在中国大陆访问 Maven 官方源一般会很慢，建议使用镜像源。
 
@@ -289,4 +383,4 @@ cp docs/maven/settings.xml ~/.m2/
 
 == 许可
 
-使用与 https://github.com/spring-projects/spring-boot[Spring Boot] 一致的 Apache License 2.0 许可。
+本项目使用与 https://github.com/spring-projects/spring-boot[Spring Boot] 一致的 Apache License 2.0 许可。
