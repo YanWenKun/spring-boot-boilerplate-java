@@ -7,16 +7,16 @@ ARG RUNNER_IMAGE=adoptopenjdk:11-jre-openj9
 # ===============================================
 
 # 编译环境
-FROM $BUILDER_IMAGE AS builder
+FROM $BUILDER_IMAGE AS buildingStage
 
 # 即使在容器中，也应当使用低特权用户
-RUN mkdir -p /home/maven /build && \
-        useradd maven -d /home/maven && \
-        chown -R maven:maven /home/maven /build
-USER maven:maven
+RUN mkdir -p /home/builder /build && \
+        useradd builder -d /home/builder && \
+        chown -R builder:builder /home/builder /build
+USER builder:builder
 
 # 配置 Maven 使用镜像源（阿里云）
-COPY --chown=maven:maven docs/maven/settings.xml /home/maven/.m2/settings.xml
+COPY --chown=builder:builder docs/maven/settings.xml /home/builder/.m2/settings.xml
 
 # 先让 Maven 解析并下载项目依赖，有利于 Docker 缓存
 # 注意这里激活了 prod 配置集，如需其它配置集可按需修改
@@ -29,6 +29,7 @@ RUN mvn --batch-mode \
         dependency:resolve
 
 # 编译项目
+# 注意这里跳过了测试环节，请根据流水线设计调整
 # 注意这里激活了 prod 配置集，如需其它配置集可按需修改
 COPY src ./src
 RUN mvn --batch-mode \
@@ -42,13 +43,13 @@ RUN mvn --batch-mode \
 # ===============================================
 
 # 运行环境
-FROM $RUNNER_IMAGE AS runner
+FROM $RUNNER_IMAGE AS runningStage
 
 # 即使在容器中，也应当使用低特权用户
-RUN mkdir -p /home/spring && \
-        useradd spring -d /home/spring && \
-        chown -R spring:spring /home/spring
-USER spring:spring
+RUN mkdir -p /home/runner && \
+        useradd runner -d /home/runner && \
+        chown -R runner:runner /home/runner
+USER runner:runner
 
 WORKDIR /app
 
@@ -57,6 +58,6 @@ ENV JAVA_OPTS="-Xshareclasses -Xtune:virtualized"
 
 EXPOSE 8080/tcp
 
-COPY --from=builder /build/target/*.jar app.jar
+COPY --from=buildingStage /build/target/*.jar app.jar
 
 ENTRYPOINT java $JAVA_OPTS -jar app.jar

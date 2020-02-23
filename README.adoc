@@ -103,6 +103,7 @@ spring-boot-boilerplate-java
 ** 参照官方最佳实践，使用多段构建
 
 * `docs` 目录下附带若干帮助文件
+** 版本升级清单
 ** Logback 日志配置样例
 ** Maven 镜像源配置样例
 
