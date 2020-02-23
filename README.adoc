@@ -331,7 +331,7 @@ export SPRING_PROFILES_ACTIVE=prod
 
 === 版本升级清单
 
-见 link:docs/Upgrade-Checklist.adoc[版本升级清单]
+见： link:docs/Upgrade-Checklist.adoc[版本升级清单] 。
 
 === 为什么不默认使用 Lombok
 
