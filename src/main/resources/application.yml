@@ -2,4 +2,6 @@
 
 spring:
   profiles:
-    active: @activatedProperties@  # 来自 POM.XML 中的 activatedProperties
+    # 使 Spring Profile = Maven Profile
+    # 即来自 pom.xml 中的 activatedProperties
+    active: @activatedProperties@

@@ -21,21 +21,15 @@
         <java.version>11</java.version>
     </properties>
 
-    <!-- 依赖项 开始 -->
+    <!-- 依赖项（Profile无关） 开始 -->
     <dependencies>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- 测试期依赖项 开始 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -47,9 +41,15 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- 测试期依赖项 结束 -->
 
     </dependencies>
-    <!-- 依赖项 结束 -->
+    <!-- 依赖项（Profile无关） 结束 -->
 
     <!-- Maven构建插件 开始 -->
     <build>
@@ -76,32 +76,26 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-        </profile>
-        <!-- 验证阶段Profile -->
-        <profile>
-            <id>staging</id>
-            <properties>
-                <activatedProperties>staging</activatedProperties>
-            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <scope>runtime</scope>
+                    <optional>true</optional>
+                </dependency>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
         </profile>
         <!-- 生产阶段Profile -->
         <profile>
-            <id>production</id>
+            <id>prod</id>
             <properties>
-                <activatedProperties>production</activatedProperties>
+                <activatedProperties>prod</activatedProperties>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.google.protobuf</groupId>
-                    <artifactId>protobuf-java</artifactId>
-                    <version>2.5.0</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.aliyun.openservices</groupId>
-                    <artifactId>aliyun-log-logback-appender</artifactId>
-                    <version>0.1.15</version>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
     <!-- Maven Profiles定义 结束 -->

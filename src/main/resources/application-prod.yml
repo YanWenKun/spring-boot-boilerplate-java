@@ -1,0 +1,12 @@
+# 生产 Profile 配置
+# 继承 application.yml 中的配置，并覆盖
+
+logging:
+  level: # 配置 Spring 组件的日志级别
+    root: ERROR
+    web: WARN
+    com.example: WARN # 指定本 package 的日志级别
+---
+spring:
+  main:
+    banner-mode: "off" # 关闭启动时的 Ascii Art
