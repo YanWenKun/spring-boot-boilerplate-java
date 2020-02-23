@@ -1,0 +1,99 @@
+:toc:
+:toc-title: 目录
+:toc-placement!:
+:author: YAN Wenkun
+:email: yanwenkun@foxmail.com
+
+= 版本升级清单
+
+该清单记录在 DevOps 中不能自动化更新／升级的条目，尤其是手动管理的软件依赖项。
+
+toc::[]
+
+.用语规范
+****
+* update： 更新，反义词为 roll-back。例如：更新文档，更新链接。
+* upgrade： 升级，反义词为 downgrade。例如：升级到 Spring Boot 2.3.x。
+****
+
+== 制品版本
+
+.POM.xml
+[source,xml]
+----
+<groupId>com.example</groupId>
+<artifactId>demo</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+----
+
+== 软件依赖
+
+=== Spring Boot
+
+.POM.xml
+[source,xml]
+----
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.4.RELEASE</version> <!--1-->
+    <relativePath/> <!-- lookup parent from repository -->
+</parent>
+----
+<1> 修改此处，最新版本参考： https://start.spring.io/
+
+TIP: 对企业开发建议的升级策略：如无新特性需求，可以选择保守升级，落后一个中版本。比如当前主干版本是 `2.2`，可以选择 `2.1` 分支中最新的。但尽量做事前调研，不要盲目迷信保守版本。
+
+=== Java
+
+.POM.xml
+[source,xml]
+----
+<properties>
+    <java.version>11</java.version>
+</properties>
+----
+
+.Dockerfile
+[source,Dockerfile]
+----
+ARG BUILDER_IMAGE=maven:3-jdk-11-openj9
+ARG RUNNER_IMAGE=adoptopenjdk:11-jre-openj9
+----
+
+TIP: 未来更新到 Java 17 可能会有较大影响，如遇到问题，建议逐个大版本号下降式排查。
+
+=== Maven Wrapper
+
+.maven-wrapper.properties
+[source,properties]
+----
+distributionUrl=https://mirrors.aliyun.com/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip
+wrapperUrl=https://maven.aliyun.com/repository/central/io/takari/maven-wrapper/0.5.6/maven-wrapper-0.5.6.jar
+----
+
+[NOTE]
+因为要替换下载地址为阿里云镜像，可以越过 Spring 直接使用最新版的 Maven Wrapper。
+更新地址： https://github.com/takari/maven-wrapper
+
+
+== 文档更新
+
+检查文档中是否有需要同步更新的内容：
+
+* link:../README.adoc[README.doc]
+* link:Upgrade-Checklist.adoc[Upgrade-Checklist.adoc]
+
+TIP: 本文档为了兼容 GitHub 显示，并未使用 AsciiDoc 的引用功能，所有代码片段均为静态文本。
+
+== 工程准备
+
+. 测试环境与日志记录
+. 回滚策略
+. 升级目标、内容与方式
+. 新特性清单，重大改动项
+. 升级路径与流程
+. 复查配置
+. 复查升级历史
+. 测试
+. 通知并记录文档
