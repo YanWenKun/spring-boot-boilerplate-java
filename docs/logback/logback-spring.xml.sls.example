@@ -22,8 +22,8 @@
 <configuration>
 
     <!-- 指定 Spring Profile -->
-    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!production" -->
-    <springProfile name="production">
+    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!prod" -->
+    <springProfile name="prod">
 
         <!-- 引入基础默认配置，具体内容请查看Spring源代码： -->
         <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml -->

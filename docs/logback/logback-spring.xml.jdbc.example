@@ -8,7 +8,7 @@
 <configuration>
 
     <!-- 指定 Spring Profile -->
-    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!production" -->
+    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!prod" -->
     <springProfile name="!dev">
 
         <!-- 引入基础默认配置，具体内容请查看Spring源代码： -->
@@ -22,7 +22,7 @@
             <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
                 <driverClass>com.mysql.jdbc.Driver</driverClass>
                 <url>
-                    jdbc:mysql://192.168.1.1:3306/【日志数据库名】?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
+                    jdbc:mysql://127.0.0.1:3306/【日志数据库名】?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
                 </url>
                 <user>【数据库用户名】</user>
                 <password>【数据库密码】</password>

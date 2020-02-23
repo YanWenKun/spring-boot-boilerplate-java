@@ -1,0 +1,48 @@
+= Spring Logback 日志配置参考
+:author: YAN Wenkun
+:email: yanwenkun@foxmail.com
+
+一般而言，容器环境下，日志输出到 STDOUT（标准输出，命令行输出）即可，由容器管理日志的收集，程序只需要配置日志输出等级。
+
+如果你找到了本文件，你可能需要对 Logback 进行详细配置。理解 Logback 的配置需要阅读较为冗长的文档，而本目录下有多个样例文件可供你直接参考，节约你的时间。
+
+=== 配置 `application-{$profile}.yml`
+
+.application.yml 参考
+[source,yaml]
+----
+logging:
+  # 配置日志文件名称与路径。仅在需要时使用，容器环境请将本段删除
+  file:
+    # 文件名，可直接带上路径
+    name: ./log/@artifactId@.@activatedProperties@.log
+    # 路径，如不指定请注释掉，勿留空。示例为指向OS临时目录
+    path: ${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}}
+  # 配置日志输出等级
+  level:
+    root: ERROR # 配置Spring组件的日志级别
+    web: WARN
+    com.example: WARN # 指定业务的日志级别
+----
+
+* 大部分情况下，在 `application-{$profile}.yml` 中配置日志即可，不需要额外编写 `logback-spring.xml` 配置文件
+* 建议借助 IDE 翻阅 `logging` 下的可配置项
+* 完整配置项可参考： https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html[Common Application properties]
+
+=== 配置 `logback-spring.xml`
+
+* 如果一些参数没有被 Spring 属性化，需要额外配置 `logback-spring.xml`
+* 请参考本目录下的样例文件：
+** `logback-spring.xml.example` 根据 Profile 选用控制台输出／文件输出（简单配置）
+** `logback-spring.xml.file.example` 文件输出（详细配置）
+** `logback-spring.xml.jdbc.example` 数据库输出（JDBC）
+** `logback-spring.xml.sls.example` 阿里云SLS（阿里云日志服务）
+* 如果感到困惑，请使用 `logback-spring.xml.example`，并在 `application.yml` 中配置 `logging.file.name` （日志文件名）
+
+=== 一些原则
+
+* 原则上，尽量多配置于 `application-{$profile}.yml` 中，少配置于 `logback-spring.xml` 中，便于管理，也减少文件长度
+* 编写代码时不要用 `System.out.println()`，而是使用 Slf4j 分等级记录日志
+** 可用等级（从低到高）： `TRACE` `DEBUG` `INFO` `WARN` `ERROR`
+** Lombok 可以使用 @Slf4j 注解减少代码，但本项目没有引入该依赖
+* 生产环境如无对 STDOUT 的捕获，则建议关闭控制台输出

@@ -8,8 +8,8 @@
 <configuration>
 
     <!-- 指定 Spring Profile -->
-    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!production" -->
-    <springProfile name="staging">
+    <!-- 备注： name 属性允许简单逻辑运算，如【逻辑或】"dev | staging"，【逻辑非】"!prod" -->
+    <springProfile name="prod">
 
         <!-- 引入默认配置文件以减少文件长度 -->
 
@@ -21,7 +21,7 @@
         <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/file-appender.xml -->
         <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
 
-        <!-- 日志文件名不在此处配置，请修改配置文件【 application-{$profile}.yaml 】 -->
+        <!-- 此处不配置日志文件的名称与保存路径，请在 application-{$profile}.yml 中配置 -->
 
         <!-- 指定基础日志级别 -->
         <root level="WARN">
