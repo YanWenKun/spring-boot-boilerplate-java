@@ -1,7 +1,7 @@
 ### Java／Kotlin／Spring／Vert.x 项目常用 .gitattributes 模板 ###
 ### GitHub地址： https://github.com/yanwenkun/git-ignore-and-attributes-for-java ###
 ### 整理者： yanwenkun@foxmail.com ###
-### 版本： 20200212-1 ###
+### 版本： 20200225-1 ###
 
 # 参考手册： https://git-scm.com/docs/gitattributes
 
@@ -12,9 +12,9 @@
 * text=auto eol=lf
 
 # 举例说明：
-# text 表示将所有 .txt 扩展名的文件视为纯文本文件
+# text 表示将所有 .adoc 扩展名的文件视为纯文本文件
 # eol=lf 表示强制以 LF（即 \n） 作为换行符
-*.txt text eol=lf
+*.adoc text eol=lf
 
 # 指定 CRLF 换行符
 *.cmd text eol=crlf
@@ -22,7 +22,6 @@
 *.bat text eol=crlf
 
 # 指定 LF 换行符
-*.adoc text eol=lf
 *.conf text eol=lf
 *.css text eol=lf
 *.gradle text eol=lf
@@ -33,7 +32,6 @@
 *.json text eol=lf
 *.jsp text eol=lf
 *.kt text eol=lf
-*.kts text eol=lf
 *.kts text eol=lf
 *.map text eol=lf
 *.md text eol=lf
