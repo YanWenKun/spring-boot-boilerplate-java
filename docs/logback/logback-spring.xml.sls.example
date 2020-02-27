@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Spring Logback 配置： 输出日志到阿里云日志服务（阿里云SLS） -->
-<!-- 整理编辑： yanwenkun@foxmail.com -->
+<!-- 整理编辑： code@yanwk.fun -->
 
 <!-- Spring 文档：理解日志等级 -->
 <!-- https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-custom-log-levels -->

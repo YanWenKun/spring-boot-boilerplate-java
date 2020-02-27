@@ -1,6 +1,6 @@
 = Spring Logback 日志配置参考
 :author: YAN Wenkun
-:email: yanwenkun@foxmail.com
+:email: code@yanwk.fun
 
 一般而言，容器环境下，日志输出到 STDOUT（标准输出，命令行输出）即可，由容器管理日志的收集，程序只需要配置日志输出等级。
 

@@ -1,7 +1,7 @@
 :toc:
 :toc-title: 目录
 :author: YAN Wenkun
-:email: yanwenkun@foxmail.com
+:email: code@yanwk.fun
 
 = Spring Boot 样板项目（使用 Java 与 Maven）
 

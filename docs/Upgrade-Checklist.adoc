@@ -2,7 +2,7 @@
 :toc-title: 目录
 :toc-placement!:
 :author: YAN Wenkun
-:email: yanwenkun@foxmail.com
+:email: code@yanwk.fun
 
 = 版本升级清单
 
