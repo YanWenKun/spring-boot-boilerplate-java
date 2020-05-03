@@ -1,7 +1,7 @@
 ### Java／Kotlin／Spring／Vert.x 项目常用 .gitignore 模板 ###
 ### GitHub地址： https://github.com/yanwenkun/git-ignore-and-attributes-for-java ###
 ### 整理者： code@yanwk.fun ###
-### 版本： 20191121-1 ###
+### 版本： 20200504-2 ###
 
 log/
 *.log
@@ -160,7 +160,10 @@ hs_err_pid*
 out/
 
 #### Intellij+iml 详细（将会保留一些配置文件，按需开启） ###
-## Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+## 如果你的项目很大，那么值得将 IDEA 一些配置也保存到代码库中，减少其他人打开项目的时间。
+## 来自： https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
+##
+## Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 ## Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 #
 ## User-specific stuff
@@ -190,13 +193,16 @@ out/
 ## When using Gradle or Maven with auto-import, you should exclude module files,
 ## since they will be recreated, and may cause churn.  Uncomment if using
 ## auto-import.
-#.idea/artifacts
-#.idea/compiler.xml
-#.idea/modules.xml
-#.idea/*.iml
-#.idea/modules
-#*.iml
-#*.ipr
+## 这些文件仅在 IDE 中开启针对 Maven / Gradle 的“自动导入”功能时才需要忽略。
+## 如果你的项目很大，那么显然你不应该开启自动导入。
+## .idea/artifacts
+## .idea/compiler.xml
+## .idea/jarRepositories.xml
+## .idea/modules.xml
+## .idea/*.iml
+## .idea/modules
+## *.iml
+## *.ipr
 #
 ## CMake
 #cmake-build-*/

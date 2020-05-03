@@ -57,6 +57,10 @@
 *.class binary
 *.dll binary
 *.ear binary
+*.gz binary
 *.jar binary
 *.so  binary
+*.tar binary
 *.war binary
+*.xz binary
+*.zip binary
