@@ -1,0 +1,20 @@
+# 用于统一编辑器风格的 EditorConfig: https://EditorConfig.org
+
+# 表明该配置文件为顶层配置。子目录还可以单独配置
+root = true
+
+# 换行符设置是提示编辑器的，与 .gitattributes 不冲突
+[*]
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# 为特定文件指定缩进
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
+
+[{*.java,*.kt}]
+indent_style = space
+indent_size = 4

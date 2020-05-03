@@ -16,6 +16,7 @@
 
 ----
 spring-boot-boilerplate-java
+│  .editorconfig
 │  .gitattributes
 │  .gitignore
 │  docker-compose.yml
@@ -85,6 +86,9 @@ spring-boot-boilerplate-java
 ** 一个通用的 `.gitignore` 文件（规定 git 自动忽略哪些文件）
 ** 一个通用的 `.gitattributes` 文件（规定 git 对文本格式的处理）
 ** 为空目录添加 `.gitkeep` 文件（0字节，仅占位，避免空目录被忽略）
+
+* 编辑器行为配置
+** 以 `.editorconfig` 文件来规范字符编码、行尾、文件末尾、缩进格式等
 
 * Maven Wrapper 使用【阿里云】中国大陆的下载地址，改善下载速度
 ** Maven 仓库源并未配置到国内，请参照 <<配置 Maven 使用镜像源>> 进行配置
