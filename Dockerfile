@@ -54,11 +54,19 @@ USER runner:runner
 
 WORKDIR /app
 
-# OpenJ9 JVM 容器环境优化参数 https://developer.ibm.com/technologies/java/articles/optimize-jvm-startup-with-eclipse-openjj9/
-ENV JAVA_OPTS="-Xshareclasses -Xtune:virtualized"
-
 EXPOSE 8080/tcp
 
+# OpenJ9 JVM 容器环境优化参数
+# https://developer.ibm.com/technologies/java/articles/optimize-jvm-startup-with-eclipse-openjj9/
+ENV JAVA_OPTS="-Xshareclasses -Xtune:virtualized"
+
+# 以下步骤会因项目代码变化而使构建缓存失效，因此放在最后
 COPY --from=buildingStage /build/target/*.jar app.jar
+
+# 使用 AOT 预热，以加快启动速度，缺点是缓存文件会增大镜像体积，可添加 -Xscmx32M 参数做限制
+# https://developer.ibm.com/technologies/java/articles/eclipse-openj9-class-sharing-in-docker-containers/
+RUN sh -c 'java -Xshareclasses -jar app.jar &' ; \
+        sleep 15 ; \
+        ps aux | grep "java" | grep "app.jar" | awk '{print $2}' | xargs kill -15
 
 ENTRYPOINT java $JAVA_OPTS -jar app.jar
