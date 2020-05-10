@@ -4,4 +4,4 @@ services:
     build: . # 使用本目录下的 Dockerfile 构建镜像
     image: example/demo:dev # 指定镜像标签，注意修改
     ports:
-      - "8080:8080"
+      - "8080:8080" # 左为映射到本机的端口，右为容器的端口
