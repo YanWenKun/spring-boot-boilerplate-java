@@ -27,8 +27,7 @@ RUN mvn --batch-mode \
         --quiet \
         --errors \
         --activate-profiles prod \
-        dependency:resolve \
-        dependency:resolve-plugins
+        dependency:go-offline
 
 # 编译项目
 # 注意这里跳过了测试环节，请根据流水线设计调整
