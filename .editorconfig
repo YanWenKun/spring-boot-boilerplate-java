@@ -1,8 +1,11 @@
-# 用于统一编辑器风格的 EditorConfig: https://EditorConfig.org
+# 用于统一编辑器风格的 EditorConfig 配置
+# 语法参考： https://EditorConfig.org
 
-# 表明该配置文件为顶层配置。子目录还可以单独配置
+# 表明该配置文件为顶层配置
+# 子目录还可以单独放置 .editorconfig 文件以配置
 root = true
 
+# 为所有文件指定规则
 # 换行符设置是提示编辑器的，与 .gitattributes 不冲突
 [*]
 charset = utf-8
@@ -15,6 +18,11 @@ insert_final_newline = true
 indent_style = space
 indent_size = 2
 
-[{*.java,*.kt}]
+# 按扩展名指定缩进
+[*.{java,kt}]
 indent_style = space
 indent_size = 4
+
+[*.json]
+indent_style = space
+indent_size = 2
