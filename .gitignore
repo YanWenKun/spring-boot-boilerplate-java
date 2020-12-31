@@ -1,7 +1,7 @@
-### Java／Kotlin／Spring／Vert.x 项目常用 .gitignore 模板 ###
+### Java／Kotlin／Spring／Quarkus／Vert.x 项目常用 .gitignore 模板 ###
 ### GitHub地址： https://github.com/yanwenkun/git-ignore-and-attributes-for-java ###
 ### 整理者： code@yanwk.fun ###
-### 版本： 20200504-2 ###
+### 版本： 20200508-1 ###
 
 log/
 *.log
@@ -9,7 +9,7 @@ log/
 !**/src/main/**
 !**/src/test/**
 
-### Apple ###
+### macOS ###
 ._*
 *.DS_Store
 .AppleDouble
@@ -26,7 +26,7 @@ Temporary Items
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-# Icon must end with two \r
+# Icon\r 文件，此处需要两个 \r 作为结尾
 Icon
 
 ### Spring Boot ###
@@ -34,13 +34,6 @@ HELP.md
 
 ### Vert.x ###
 .vertx/
-
-### Gradle ###
-!gradle/wrapper/gradle-wrapper.jar
-.gradle
-gradle-app.setting
-.gradletasknamecache
-build/
 
 ### Maven ###
 !.mvn/wrapper/maven-wrapper.jar
@@ -54,27 +47,46 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
-### Spring Tool Suite ###
+### Gradle ###
+!gradle/wrapper/gradle-wrapper.jar
+.gradle
+gradle-app.setting
+.gradletasknamecache
+build/
+
+### Apache Ant ###
+build.properties
+
+### Eclipse & Spring Tool Suite ###
+.autotools
 .apt_generated
+.buildpath
+.cache-main
 .classpath
+.cproject
+.externalToolBuilders/
 .factorypath
+.loadpath
+.metadata
+.mtj.tmp/
 .project
+.recommenders
+.scala_dependencies
 .settings
 .springBeans
 .sts4-cache
-
-### Eclipse ###
-.metadata
+.target
+.tern-project
+.texlipse
+.worksheet
 bin/
 tmp/
-*.tmp
 *.bak
-*.swp
+*.launch
+*.pydevproject
+*.tmp
 *~.nib
 local.properties
-.settings/
-.loadpath
-.recommenders
 
 ### NetBeans ###
 nbproject/private/
@@ -83,6 +95,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+nb-configuration.xml
 
 ### VS Code ###
 .vscode/*
@@ -91,64 +104,28 @@ nbdist/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-### Apache Ant ###
-build.properties
+### Vim ###
+*.swp
+*.swo
 
+### BlueJ ###
+*.ctxt
+
+# JVM 崩溃日志
+hs_err_pid*
 # 图片缩略图
 Thumbs.db
-
 # 压缩包
-*.tar.gz
+*.tar
+*.gz
 *.rar
 *.zip
-
 # 程序包
 *.nar
 *.ear
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-# External tool builders
-.externalToolBuilders/
-
-# Locally stored "Eclipse launch configurations"
-*.launch
-
-# PyDev specific (Python IDE for Eclipse)
-*.pydevproject
-
-# CDT-specific (C/C++ Development Tooling)
-.cproject
-
-# CDT- autotools
-.autotools
-
-# PDT-specific (PHP Development Tools)
-.buildpath
-
-# sbteclipse plugin
-.target
-
-# Tern plugin
-.tern-project
-
-# TeXlipse plugin
-.texlipse
-
-# Annotation Processing
-.apt_generated/
-
-# Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
+# 补丁文件
+*.orig
+*.rej
 
 ### IntelliJ IDEA 常用配置 ###
 ## 该配置将排除整个 .idea 文件夹
