@@ -18,7 +18,7 @@
     <!-- 软件制品信息 结束 -->
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
 
     <!-- 依赖项（Profile无关） 开始 -->

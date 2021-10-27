@@ -50,18 +50,18 @@ TIP: 对企业开发建议的升级策略：如无新特性需求，可以选择
 [source,xml]
 ----
 <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
 </properties>
 ----
 
 .Dockerfile
 [source,Dockerfile]
 ----
-ARG BUILDER_IMAGE=maven:3-eclipse-temurin-11
-ARG RUNNER_IMAGE=ibm-semeru-runtimes:open-11-jre
+ARG BUILDER_IMAGE=maven:3-eclipse-temurin-17
+ARG RUNNER_IMAGE=ibm-semeru-runtimes:open-17-jre
 ----
 
-TIP: 未来更新到 Java 17 可能会有较大影响，如遇到问题，建议逐个大版本号下降式排查。
+TIP: 未来更新到 Java 21 可能会有较大影响，如遇到问题，建议逐个大版本号下降式排查。
 
 === Maven Wrapper
 

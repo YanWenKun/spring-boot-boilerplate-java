@@ -78,7 +78,7 @@ spring-boot-boilerplate-java
 == 项目信息
 
 * 构建工具：Maven
-* Java 版本：11
+* Java 版本：17
 
 与 https://start.spring.io/[Spring Initializr] 生成的 https://spring.io/projects/spring-boot/[Spring Boot] 项目相比，有如下变动：
 
