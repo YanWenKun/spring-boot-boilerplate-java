@@ -57,8 +57,8 @@ TIP: 对企业开发建议的升级策略：如无新特性需求，可以选择
 .Dockerfile
 [source,Dockerfile]
 ----
-ARG BUILDER_IMAGE=maven:3-jdk-11-openj9
-ARG RUNNER_IMAGE=adoptopenjdk:11-jre-openj9
+ARG BUILDER_IMAGE=maven:3-eclipse-temurin-11
+ARG RUNNER_IMAGE=ibm-semeru-runtimes:open-11-jre
 ----
 
 TIP: 未来更新到 Java 17 可能会有较大影响，如遇到问题，建议逐个大版本号下降式排查。
