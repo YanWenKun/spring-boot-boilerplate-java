@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>[2.4,2.5)</version> <!-- 版本区间，左闭右开 -->
+        <version>[2.5,2.6)</version> <!-- 版本区间，左闭右开 -->
         <relativePath/> <!-- 该项置空表示从仓库查找（该父级项目），而非从本地的相对路径查找 -->
     </parent>
     <!-- 软件制品信息 开始 -->
