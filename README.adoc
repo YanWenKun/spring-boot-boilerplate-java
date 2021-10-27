@@ -120,7 +120,7 @@ spring-boot-boilerplate-java
 * 如果你不想使用 IDE，可以用命令行的方式运行 Spring Boot 项目，你需要先在本地安装：
 
 ** Git
-** JDK 11 或更高版本
+** JDK 17 或更高版本
 
 执行命令：
 
