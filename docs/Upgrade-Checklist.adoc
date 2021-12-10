@@ -13,7 +13,7 @@ toc::[]
 .用语规范
 ****
 * update： 更新，反义词为 roll-back。例如：更新文档，更新链接。
-* upgrade： 升级，反义词为 downgrade。例如：升级到 Spring Boot 2.5.x。
+* upgrade： 升级，反义词为 downgrade。例如：升级到 Spring Boot 2.6.x。
 ****
 
 == 制品版本
@@ -36,13 +36,13 @@ toc::[]
 <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>[2.5,2.6)</version> <!--1-->
+    <version>[2.6,2.7)</version> <!--1-->
     <relativePath/>
 </parent>
 ----
 <1> 修改此处，最新版本参考： https://start.spring.io/
 
-TIP: 对企业开发建议的升级策略：如无新特性需求，可以选择保守升级，落后一个中版本。比如当前主干版本是 `2.5`，可以选择 `2.4` 分支中最新的。但尽量做事前调研，不要盲目迷信保守版本。
+TIP: 对企业开发建议的升级策略：如无新特性需求，可以选择保守升级，落后一个中版本。比如当前主干版本是 `2.6`，可以选择 `2.5` 分支中最新的。但尽量做事前调研，不要盲目迷信保守版本。
 
 === Java
 
