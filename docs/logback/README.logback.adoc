@@ -6,7 +6,7 @@
 
 如果你找到了本文件，你可能需要对 Logback 进行详细配置。理解 Logback 的配置需要阅读较为冗长的文档，而本目录下有多个样例文件可供你直接参考，节约你的时间。
 
-=== 配置 `application-{$profile}.yml`
+== 配置 `application-{$profile}.yml`
 
 .application.yml 参考
 [source,yaml]
@@ -29,7 +29,7 @@ logging:
 * 建议借助 IDE 翻阅 `logging` 下的可配置项
 * 完整配置项可参考： https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html[Common Application properties]
 
-=== 配置 `logback-spring.xml`
+== 配置 `logback-spring.xml`
 
 * 如果一些参数没有被 Spring 属性化，需要额外配置 `logback-spring.xml`
 * 请参考本目录下的样例文件：
@@ -39,7 +39,7 @@ logging:
 ** `logback-spring.xml.sls.example` 阿里云SLS（阿里云日志服务）
 * 如果感到困惑，请使用 `logback-spring.xml.example`，并在 `application.yml` 中配置 `logging.file.name` （日志文件名）
 
-=== 一些原则
+== 一些原则
 
 * 原则上，尽量多配置于 `application-{$profile}.yml` 中，少配置于 `logback-spring.xml` 中，便于管理，也减少文件长度
 * 编写代码时不要用 `System.out.println()`，而是使用 Slf4j 分等级记录日志
